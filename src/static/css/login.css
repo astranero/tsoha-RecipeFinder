@@ -1,0 +1,139 @@
+html,
+body {
+  height: 100%;
+  font-family: Poppins-Regular,sans-serif;
+}
+
+body {
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+  }
+
+.limiter {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.background-login {
+    width: 100%;
+    min-height: 100vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #f2f2f2;
+}
+
+.sign-in-setup {
+  width: 100%;
+  height: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: Poppins-Regular;
+}
+
+.wrap-login {
+    width: 1170px;
+    height: 950px;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex-direction: row-reverse;
+    box-sizing: border-box;
+}
+
+.wrap-input {
+  border: 1px solid #e6e6e6;
+}
+
+.login-form {
+    position: static;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 303px 65px 0px;
+  }
+
+.login-picture {
+    width: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 1;
+}
+
+.page-title {
+    position: relative; top: -220px;
+    font-family: Poppins-Regular;
+    font-size: 37px;
+    color: rgb(69, 68, 68);
+    letter-spacing: 3px;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.login-form-title {
+    font-family: Poppins-Regular;
+    font-size: 20px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    width: 100%;
+    height: 0px;
+    display: block;
+}
+
+.validate-input {
+  position: relative;
+}
+.username-input, .password-input {
+  width: 50%;
+  height: 10%
+}
+
+.input {
+  outline: none;
+  border: none;
+  height: 55px;
+  display: block;
+  width: 100%;
+  background: 0 0;
+  font-family: Poppins-Regular;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  color: #666;
+  padding: 0 25px;
+}
+
+.signup-form {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 239px;
+  padding-top: -100px;
+  text-align: center !important;
+}
+
+.m-b-50 {
+  margin-bottom: -50px;
+}
+
+.txt1 {
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #999;
+}
+
+.txt2 {
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #141312;
+}
