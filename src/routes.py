@@ -6,7 +6,9 @@ from services.user_service import user_service
 def login():
     if request.method == "POST":
         username = request.form["username"]
+        print(username)
         password = request.form["password"]
+        print(password)
         if user_service.login_user(username, password):
             return redirect("/homepage")
         return redirect("/")
@@ -24,7 +26,9 @@ def signup():
         role = request.form["role"]
         phone_number = request.form["phone_number"]
         email = request.form["email"]
+        print(username)
         user_service.register_user(username, password1, role, phone_number, email)
+        print(user_service.register_user(username, password1, role, phone_number, email))
         return redirect("/homepage")
     return render_template("signup.html")
 
