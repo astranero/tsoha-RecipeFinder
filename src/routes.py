@@ -9,9 +9,10 @@ def login():
         print(username)
         password = request.form["password"]
         print(password)
-        if user_service.login_user(username, password):
-            return redirect("/homepage")
-        return redirect("/")
+        print(user_service.login_user(username, password))
+        if not user_service.login_user(username, password):
+            return render_template("login.html")
+        return redirect("/homepage")
     return render_template("login.html")
 
 @app.route("/signup", methods=["GET","POST"])
@@ -19,16 +20,16 @@ def signup():
     if request.method == "POST":
         username = request.form["username"]
         password1 = request.form["password1"]
-        #password2 = request.form["password2"]
+        password2 = request.form["password2"]
 
-        #if password1 != password2:
-            #return render_template("signup.html")
+        if password1 != password2:
+            return redirect("/signup")
         role = request.form["role"]
         phone_number = request.form["phone"]
         email = request.form["email"]
-        print(username)
-        user_service.register_user(username, password1, role, phone_number, email)
-        print(user_service.register_user(username, password1, role, phone_number, email))
+        print(username, password1, password2, role, phone_number, email)
+        if not user_service.register_user(username, password1, role, phone_number, email):
+            return redirect("/signup")
         return redirect("/homepage")
     return render_template("signup.html")
 
