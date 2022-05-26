@@ -24,7 +24,7 @@ def signup():
         #if password1 != password2:
             #return render_template("signup.html")
         role = request.form["role"]
-        phone_number = request.form["phone_number"]
+        phone_number = request.form["phone"]
         email = request.form["email"]
         print(username)
         user_service.register_user(username, password1, role, phone_number, email)
