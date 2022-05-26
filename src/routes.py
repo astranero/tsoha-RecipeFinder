@@ -6,12 +6,12 @@ from services.user_service import user_service
 def login():
     if request.method == "POST":
         username = request.form["username"]
-        print(username)
         password = request.form["password"]
-        print(password)
-        print(user_service.login_user(username, password))
+        print(username, password)
         if not user_service.login_user(username, password):
+            print('fail')
             return render_template("login.html")
+        print('ok')
         return redirect("/homepage")
     return render_template("login.html")
 
@@ -29,6 +29,7 @@ def signup():
         email = request.form["email"]
         print(username, password1, password2, role, phone_number, email)
         if not user_service.register_user(username, password1, role, phone_number, email):
+            print('fail')
             return redirect("/signup")
         return redirect("/homepage")
     return render_template("signup.html")
