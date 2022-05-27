@@ -47,4 +47,15 @@ class UserRepository:
                                     WHERE phone_number=:phone_number",
                                     {"phone_number":phone_number}).fetchall())
 
+    def get_current_username(self, id):
+        return self._db.session.execute("SELECT username FROM Users WHERE id=:id", \
+                                        {"id":id}).fetchone()[0]
+    def get_current_email(self, id):
+        return self._db.session.execute("SELECT email FROM Users WHERE id=:id", \
+                                        {"id":id}).fetchall()[0]
+
+    def get_current_phone_number(self, id):
+        return self._db.session.execute("SELECT phone_number FROM Users WHERE id=:id", \
+                                        {"id":id}).fetchone()[0]
+
 user_repository = UserRepository()

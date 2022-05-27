@@ -31,7 +31,23 @@ def signup():
 def homepage():
     return render_template("homepage.html")
 
-@app.route("/profile", methods=["GET","POST"])
-def profile():
-    return render_template("profile.html")
+@app.route("/profile/<int:id>", methods=["GET","POST"])
+def profile(id):
+    username = user_service.get_current_username(id)
+    email = user_service.get_current_email(id)
+    phone_number = user_service.get_current_phone_number(id)
+    print(username, email, phone_number)
+    if request.method == "GET":
+        return render_template("profile.html", username=username, email=email, phone_number=phone_number, id=id)
 
+
+
+@app.route("/favourites", methods=["GET","POST"])
+def favourites():
+    return render_template("favourites.html")
+
+
+@app.route("/logout", methods=["GET","POST"])
+def logout():
+    user_service.logout()
+    return redirect("/")

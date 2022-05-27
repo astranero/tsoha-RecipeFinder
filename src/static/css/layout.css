@@ -40,11 +40,21 @@ body {
     align-items: center;
     position: absolute;
     background-position: center;
-    top: 10%;
+    top: 13%;
     left: 2.5%;
     background-color: #fff;
 }
 
 .food-categories {
 
+}
+
+.page-title {
+    font-family: Poppins-Regular;
+    font-size: 30px;
+    color: rgb(69, 68, 68);
+    letter-spacing: 3px;
+    text-align: center;
+    width: 90%;
+    display: block;
 }

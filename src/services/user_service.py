@@ -38,6 +38,15 @@ class UserService:
             return True
         return False
 
+    def get_current_username(self, id):
+        return self._user_repository.get_current_username(id)
+
+    def get_current_email(self, id):
+        return self._user_repository.get_current_email(id)
+
+    def get_current_phone_number(self, id):
+        return self._user_repository.get_current_phone_number(id)
+
     def logout(self):
         del session["id"]
         del session["username"]

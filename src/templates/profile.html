@@ -2,6 +2,15 @@
 
 {% block content %}
 <body>
-
+    <div class="limiter">
+        <div class="background">
+            <div class="filter-background">
+                <div> Hi<b>{{username}}</b>!</div>
+                <div> phone number: <b>{{phone_number}}</b></div>
+                <div> email:<b> {{email}}</b></div>
+                <div><a href="/logout">Log out</a></div>
+            </div>
+        </div>
+    </div>
 </body>
 {% endblock %}

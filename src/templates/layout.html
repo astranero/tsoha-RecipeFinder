@@ -5,21 +5,29 @@
     <title>RecipeFinder</title>
     <a href="/"></a>
     <a href="/homepage"></a>
-    <a href="/profile"></a>
+    <a href="/profile/{{session.id}}"></a>
+    <a href="/favourites"></a>
     <link href="../static/css/layout.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 </head>
 {% block content %}{% endblock %}
     <body>
         <div class="limiter">
             <nav class="navbar sticky-top navbar-light navbar-color">
-                <a class="navbar-brand" href="#">RecipeFinder</a>
+                <a class="navbar-brand page-title" href="/homepage">RecipeFinder</a>
                 <ul class="nav">
-                    <li class="nav-item">
-                    <a class="nav-link active" href="/profile"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <a class="nav-link active" href="/favourites">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                        <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                        </svg>
+                    </a>
+                    <a class="nav-link active" href="/profile/{{session.id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg></a>
-                    </li>
+                        </svg>
+                    </a>
                 </ul>
             </nav>
     </body>
