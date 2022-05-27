@@ -3,7 +3,7 @@ from flask import session, abort, request
 import secrets
 from entities.user import User
 from repositories.user_repository import (
-    UserRepository as default_user_repository)
+    user_repository as default_user_repository)
 
 class UserService:
     def __init__(self, user_repository=default_user_repository):
@@ -17,8 +17,14 @@ class UserService:
                     phone_number=phone_number,
                     email=email)
 
-        self._user_repository.signup_user(user)
+        self.validate_registration(username, email, phone_number)
+        self._user_repository.register_user(user)
         self.login_user(username, password)
+
+    def validate_registration(self, username, email, phone_number):
+        assert not self._user_repository.check_if_username_exists(username), "Username is taken"
+        assert not self._user_repository.check_if_email_exists(email), "Email is taken"
+        assert not self._user_repository.check_if_phone_number_exists(phone_number), "Phone number is taken"
 
     def login_user(self, username, password):
         user = self._user_repository.login(username)

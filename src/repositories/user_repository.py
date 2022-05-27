@@ -13,7 +13,7 @@ class UserRepository:
         except:
             return False
 
-    def signup_user(self, user_object: User):
+    def register_user(self, user_object: User):
         try:
             hash_value = generate_password_hash(user_object.password)
             values_to_db = {"username":user_object.username,
@@ -28,5 +28,23 @@ class UserRepository:
             self._db.session.commit()
         except:
             return False
+
+    def check_if_username_exists(self, username):
+        return bool(self._db.session.execute("SELECT username \
+                                    FROM users \
+                                    WHERE username=:username",
+                                    {"username":username}).fetchall())
+
+    def check_if_email_exists(self, email):
+        return bool(self._db.session.execute("SELECT email \
+                                    FROM users \
+                                    WHERE email=:email",
+                                    {"email":email}).fetchall())
+
+    def check_if_phone_number_exists(self, phone_number):
+        return bool(self._db.session.execute("SELECT phone_number \
+                                    FROM users \
+                                    WHERE phone_number=:phone_number",
+                                    {"phone_number":phone_number}).fetchall())
 
 user_repository = UserRepository()

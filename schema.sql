@@ -1,9 +1,16 @@
+DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS Recipes CASCADE;
+DROP TABLE IF EXISTS IngredientCategory CASCADE;
+DROP TABLE IF EXISTS FoodCategory CASCADE;
+DROP TABLE IF EXISTS Tags CASCADE;
+DROP TABLE IF EXISTS RecipeTags CASCADE;
+
 CREATE TABLE IF NOT EXISTS Users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE CHECK(username IS NOT NULL AND length(username) > 3),
     password TEXT CHECK(password IS NOT NULL AND length(password) > 7),
     role INTEGER,
-    phone_number INTEGER,
+    phone_number TEXT,
     email TEXT
 );
 
