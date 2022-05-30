@@ -1,5 +1,4 @@
 from db import (db as default_db)
-from entities.quantity import Quantity
 
 class QuantityRepository:
     def __init__(self, db=default_db):
@@ -7,8 +6,9 @@ class QuantityRepository:
 
     def create_quantity(self, quantity):
         try:
-            sql = "INSERT INTO Quantity (ingredient_quantity) VALUES (:quantity)"
-            self._db.session.execute(sql, Quantity(quantity=quantity))
+            sql = "INSERT INTO Quantity (ingredient_quantity) \
+                    VALUES (:quantity)"
+            self._db.session.execute(sql, quantity)
             self._db.session.commit()
         except:
             return False
@@ -18,3 +18,5 @@ class QuantityRepository:
 
     def modify_quantity(self):
         pass
+
+quantity_repository = QuantityRepository()

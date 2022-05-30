@@ -1,5 +1,4 @@
 from db import db as default_db
-from entities.measurement import Measurement
 
 class MeasurementRepository:
     def __init__(self, db=default_db):
@@ -7,8 +6,9 @@ class MeasurementRepository:
 
     def create_measurement(self, measurement_name):
         try:
-            sql = "INSERT INTO Measurements (measurement_name) VALUES (:measurement_name)"
-            self._db.session.execute(sql, Measurement(measurement_name=measurement_name))
+            sql = "INSERT INTO Measurements (measurement_name) \
+                    VALUES (:measurement_name)"
+            self._db.session.execute(sql, measurement_name)
             self._db.session.commit()
         except:
             return False
@@ -27,3 +27,5 @@ class MeasurementRepository:
 
     def create_measurements_from_result(self):
         pass
+
+measurement_repository = MeasurementRepository()

@@ -58,4 +58,23 @@ class UserRepository:
         return self._db.session.execute("SELECT phone_number FROM Users WHERE id=:id", \
                                         {"id":id}).fetchone()[0]
 
+    def modify_user_details(self, new_user_object):
+        values_to_db = {"user_id":new_user_object.user_id,
+                        "username":new_user_object.username,
+                        "password":new_user_object.password,
+                        "phone_number":new_user_object.phone_number,
+                        "email": new_user_object.email}
+
+        try:
+            sql ="UPDATE Users SET \
+                    username=:username, password=:password, \
+                    phone_number=:phone_number, email=:email \
+                    WHERE id=:user_id"
+
+            self._db.session.execute(sql, values_to_db)
+            self._db.connection.commit()
+        except:
+            return False
+        return True
+
 user_repository = UserRepository()

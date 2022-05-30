@@ -16,3 +16,6 @@ class IngredientService:
     def get_all_ingredients_in_category(self, category_name):
         return self._repository.get_all_ingredients_in_category(category_name)
 
+ingredient_service = IngredientService()
+
+
