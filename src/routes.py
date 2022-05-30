@@ -7,10 +7,8 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        print(username, password)
         if not user_service.login_user(username, password):
             return render_template("login.html")
-        print('ok')
         return redirect("/homepage")
     return render_template("login.html")
 
@@ -39,8 +37,6 @@ def profile(id):
     print(username, email, phone_number)
     if request.method == "GET":
         return render_template("profile.html", username=username, email=email, phone_number=phone_number, id=id)
-
-
 
 @app.route("/favourites", methods=["GET","POST"])
 def favourites():

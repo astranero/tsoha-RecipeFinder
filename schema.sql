@@ -1,9 +1,10 @@
 DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS Recipes CASCADE;
 DROP TABLE IF EXISTS IngredientCategory CASCADE;
-DROP TABLE IF EXISTS FoodCategory CASCADE;
-DROP TABLE IF EXISTS Tags CASCADE;
-DROP TABLE IF EXISTS RecipeTags CASCADE;
+DROP TABLE IF EXISTS Ingredients CASCADE;
+DROP TABLE IF EXISTS RecipeIngredients CASCADE;
+DROP TABLE IF EXISTS Quantity CASCADE;
+DROP TABLE IF EXISTS Measurements CASCADE;
 
 CREATE TABLE IF NOT EXISTS Users (
     id SERIAL PRIMARY KEY,
@@ -17,32 +18,44 @@ CREATE TABLE IF NOT EXISTS Users (
 CREATE TABLE IF NOT EXISTS Recipes (
     id SERIAL PRIMARY KEY,
     recipe_name TEXT UNIQUE,
-    description TEXT,
-    instructions TEXT,
-    prep_time TIME,
     cook_time TIME,
-    food_category INTEGER REFERENCES FoodCategory (id)
+    instructions TEXT,
+);
+
+CREATE TABLE IF NOT EXISTS Favourites (
+    user_id INTEGER REFERENCES Users (id),
+    recipe_id INTEGER REFERENCES Recipes (id)
+    UNIQUE(user_id, recipe_id)
 );
 
 CREATE TABLE IF NOT EXISTS IngredientCategory (
     id SERIAL PRIMARY KEY,
-    category_name TEXT
+    category_name TEXT UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS FoodCategory (
-    id SERIAL PRIMARY KEY,
-    category_name TEXT
-);
-
-CREATE TABLE IF NOT EXISTS Tags (
-    Tag_id INTEGER PRIMARY KEY,
-    Tag_name TEXT CHECK(Tag_name IS NOT NULL AND length(Tag_name) > 1),
+CREATE TABLE IF NOT EXISTS Ingredients (
+    id INTEGER PRIMARY KEY,
+    ingredient_name TEXT UNIQUE,
     ingredient_category INTEGER REFERENCES IngredientCategory (id)
 );
 
-CREATE TABLE IF NOT EXISTS RecipeTags (
-    Recipe_id INTEGER REFERENCES Recipes,
-    Tag_id INTEGER REFERENCES Tags,
-    UNIQUE(Recipe_id, Tag_id)
+CREATE TABLE IF NOT EXISTS RecipeIngredients (
+    recipe_id INTEGER REFERENCES Recipes,
+    ingredient_id INTEGER REFERENCES Ingredients (id),
+    UNIQUE(recipe_id, ingredient_id)
 );
+
+CREATE TABLE IF NOT EXISTS Quantity (
+    quantity_id PRIMARY KEY,
+    recipe_id INTEGER REFERENCES Recipes (id),
+    ingredient_id INTEGER REFERENCES Ingredients (id),
+    measurement_id INTEGER REFERENCES Measurements (id),
+    ingredient_quantity FLOAT
+);
+
+CREATE TABLE IF NOT EXISTS Measurements (
+    id PRIMARY KEY,
+    measurement_name TEXT UNIQUE
+);
+
 
