@@ -1,27 +1,51 @@
 from db import (db as default_db)
 
 class RecipeIngredientsRepository:
-    """All database operations related to TipTags table
-    """
-
     def __init__(self, db=default_db):
         self._db = db
 
-    def add_ingredient_to_recipe(self, recipe_id, tag_id):
-        sql = "INSERT INTO RecipeTags (recipe_id, tag_id) VALUES (:recipe_id, :tag_id)"
+    def add_ingredient_to_recipe(self, recipe_id, ingredient_id):
+        try:
+            sql = "INSERT INTO RecipeIngredients (recipe_id, ingredient_id) VALUES (:recipe_id, :ingredient_id)"
+            self._db.session.execute(sql, (recipe_id, ingredient_id))
+        except:
+            return False
 
-    def check_if_ingredient_added_to_recipe(self, recipe_id, tag_id):
-        sql = "SELECT * FROM TipTags WHERE recipe_id=:tip_id AND tag_id=:tag_id", (recipe_id, tag_id)
+    def check_if_ingredient_added_to_recipe(self, recipe_id, ingredient_id):
+        sql = "SELECT * FROM RecipeIngredients WHERE recipe_id=:tip_id AND ingredient_id=:ingredient_id"
+        query_result = self._db.session.execute(sql, (recipe_id, ingredient_id)).fetchone()
+        if not query_result:
+            return False
+        return True
 
-    def get_all_recipe_ingredient_pairs(self):
-        sql = "SELECT * FROM RecipeTags"
+    def get_all_recipes_with_ingredient_id(self, ingredient_id):
+        try:
+            ingredient_sql = "SELECT ingredient_name FROM RecipeIngredients WHERE ingredient_id=:ingredient_id"
+            query_result = self._db.session.execute(ingredient_sql, ingredient_id).fetchall()
 
-    def get_all_recipes_with_ingredient_id(self, tag_id):
-        tag_sql = "SELECT * FROM RecipeTags WHERE tag_id=:tag_id"
-        recipe_sql = "SELECT * FROM ReadingTip WHERE recipe_id=:recipe_id"
+            recipes = []
+            for pair in query_result:
+                recipe_id, ingredient_id = pair
+                recipe_sql = "SELECT recipe_name FROM Recipes WHERE recipe_id=:recipe_id"
+                recipes = self._db.session.execute(recipe_sql, recipe_id)
+                recipes.append(recipes).fetchone()
+            return recipes
+        except:
+            return False
 
     def get_all_ingredients_with_recipe_id(self, recipe_id):
-        recipe_sql = "SELECT * FROM RecipeTags WHERE recipe_id=recipe_id"
-        tag_sql = "SELECT * FROM Tags WHERE tag_id=:tag_id"
+        try:
+            recipe_sql = "SELECT recipe_name FROM Recipes WHERE recipe_id=:recipe_id"
+            query_result = self._db.session.execute(recipe_sql, recipe_id).fetchall()
 
-recipe_tags_repository = RecipeIngredientsRepository()
+            ingredients = []
+            for pair in query_result:
+                recipe_id, ingredient_id = pair
+                ingredient_sql = "SELECT ingredient_name FROM RecipeIngredients WHERE ingredient_id=:ingredient_id"
+                ingredients = self._db.session.execute(ingredient_sql, ingredient_id).fetchone()
+                ingredients.append(ingredients).fetchone()
+            return ingredients
+        except:
+            return False
+
+recipe_ingredients_repository = RecipeIngredientsRepository()

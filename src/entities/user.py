@@ -7,4 +7,3 @@ class User:
         self.role = role
         self.phone_number = phone_number
         self.email = email
-

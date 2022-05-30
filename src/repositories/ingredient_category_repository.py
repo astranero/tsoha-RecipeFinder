@@ -8,9 +8,8 @@ class IngredientCategoryRepository:
 
     def create_ingredient_category(self, category_name):
         try:
-            values_to_db = IngredientCategory(category_name=category_name)
             sql = "INSERT INTO IngredientCategory (category_name) VALUES (:category_name)"
-            self._db.session.execute(sql, values_to_db)
+            self._db.session.execute(sql, category_name)
             self._db.session.commit()
         except:
             return False

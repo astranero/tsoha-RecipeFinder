@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS Ingredients CASCADE;
 DROP TABLE IF EXISTS RecipeIngredients CASCADE;
 DROP TABLE IF EXISTS Quantity CASCADE;
 DROP TABLE IF EXISTS Measurements CASCADE;
+DROP TABLE IF EXISTS Favorites CASCADE;
 
 CREATE TABLE IF NOT EXISTS Users (
     id SERIAL PRIMARY KEY,
@@ -36,7 +37,7 @@ CREATE TABLE IF NOT EXISTS IngredientCategory (
 CREATE TABLE IF NOT EXISTS Ingredients (
     id INTEGER PRIMARY KEY,
     ingredient_name TEXT UNIQUE,
-    ingredient_category INTEGER REFERENCES IngredientCategory (id)
+    category_id INTEGER REFERENCES IngredientCategory (id)
 );
 
 CREATE TABLE IF NOT EXISTS RecipeIngredients (
@@ -57,5 +58,10 @@ CREATE TABLE IF NOT EXISTS Measurements (
     id PRIMARY KEY,
     measurement_name TEXT UNIQUE
 );
+
+CREATE TABLE IF NOT EXISTS Favorites (
+    user_id INTEGER REFERENCES Users (id)
+    recipe_id INTEGER REFERENCES Recipes (id)
+)
 
 

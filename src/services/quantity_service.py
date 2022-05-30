@@ -1,3 +1,3 @@
-class RecipeIngredientsService:
+class QuantityService:
     def __init__(self):
         pass
