@@ -38,9 +38,9 @@ def profile(id):
     if request.method == "GET":
         return render_template("profile.html", username=username, email=email, phone_number=phone_number, id=id)
 
-@app.route("/favourites", methods=["GET","POST"])
-def favourites():
-    return render_template("favourites.html")
+@app.route("/favorites", methods=["GET","POST"])
+def favorites():
+    return render_template("favorites.html")
 
 
 @app.route("/logout", methods=["GET","POST"])

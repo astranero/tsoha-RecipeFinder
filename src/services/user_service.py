@@ -39,13 +39,16 @@ class UserService:
         return False
 
     def get_current_username(self, id):
-        return self._user_repository.get_current_username(id)
+        return self._user_repository.get_current_user(id).username
 
     def get_current_email(self, id):
-        return self._user_repository.get_current_email(id)
+        return self._user_repository.get_current_user(id).email
 
     def get_current_phone_number(self, id):
-        return self._user_repository.get_current_phone_number(id)
+        return self._user_repository.get_current_user(id).phone_number
+
+    def get_current_phone_number(self, id):
+        return self._user_repository.get_current_user(id).role
 
     def logout(self):
         del session["id"]
@@ -65,6 +68,3 @@ class UserService:
             abort(403)
 
 user_service = UserService()
-
-
-

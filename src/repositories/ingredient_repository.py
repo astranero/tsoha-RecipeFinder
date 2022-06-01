@@ -22,16 +22,15 @@ class IngredientRepository:
             return False
         return True
 
-    def get_all_ingredients_in_category(self, category_name):
+    def get_all_ingredients_in_category(self, category_id):
         try:
-            sql = "SELECT ingredient_name \
+            sql = "SELECT Ingredient.ingredient_name \
                     FROM Ingredient, IngredientCategory \
                     WHERE Ingredient.category_id = IngredientCategory.id \
-                        AND Ingredient.category_name=:category_name"
-            self._db.session.execute(sql, category_name).fetchall()
+                        AND Ingredient.category_id=:category_id"
+            self._db.session.execute(sql, category_id).fetchall()
         except:
             return False
-
 
 
 ingredient_repository = IngredientRepository()

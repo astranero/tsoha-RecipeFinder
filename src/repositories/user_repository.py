@@ -8,7 +8,7 @@ class UserRepository:
 
     def login(self, username):
         try:
-            sql = "SELECT username, id, password, role FROM users WHERE username=:username"
+            sql = "SELECT id, username, password, role FROM users WHERE username=:username"
             return self._db.session.execute(sql, {"username":username}).fetchone()
         except:
             return False
@@ -47,24 +47,12 @@ class UserRepository:
                                     WHERE phone_number=:phone_number",
                                     {"phone_number":phone_number}).fetchall())
 
-    def get_current_username(self, id):
-        return self._db.session.execute("SELECT username FROM Users WHERE id=:id", \
-                                        {"id":id}).fetchone()[0]
-    def get_current_email(self, id):
-        return self._db.session.execute("SELECT email FROM Users WHERE id=:id", \
-                                        {"id":id}).fetchall()[0]
-
-    def get_current_phone_number(self, id):
-        return self._db.session.execute("SELECT phone_number FROM Users WHERE id=:id", \
-                                        {"id":id}).fetchone()[0]
-
     def modify_user_details(self, new_user_object):
         values_to_db = {"user_id":new_user_object.user_id,
                         "username":new_user_object.username,
                         "password":new_user_object.password,
                         "phone_number":new_user_object.phone_number,
                         "email": new_user_object.email}
-
         try:
             sql ="UPDATE Users SET \
                     username=:username, password=:password, \
@@ -76,5 +64,23 @@ class UserRepository:
         except:
             return False
         return True
+
+    def get_current_user(self, id):
+        sql = self._db.session.execute("SELECT * FROM Users WHERE id=:id", \
+                                        {"id":id}).fetchone()
+        return self.create_user_from_result(sql)
+
+    def create_user_from_result(self, result_row) -> User:
+        if not result_row:
+            return None
+
+        return User(
+            user_id=result_row[0],
+            username=result_row[1],
+            password=result_row[2],
+            role=result_row[3],
+            phone_number=result_row[4],
+            email=result_row[5]
+        )
 
 user_repository = UserRepository()
