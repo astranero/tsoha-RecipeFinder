@@ -19,7 +19,7 @@ The application is hosted on Heroku: https://tsoha-recipefinder.herokuapp.com/
 
 ## Documentation
 
-* [Installation Instructions](https://github.com/riikkayoki/RecipeApp/src/documentation/installation_instructions.md)
+* [Installation Instructions](https://github.com/riikkayoki/RecipeApp/tree/master//documentation)
 
 
 
