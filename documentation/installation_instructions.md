@@ -13,13 +13,19 @@ Set `SECRET_KEY` to application secret
 
 ### Running the program
 
-##### Install all dependencies
+##### 1. Install all dependencies
 
 ```
  pip3 install -r requirements.txt
 ```
 
-##### Start the application
+##### 2. Go to src file
+```
+  cd src
+```
+
+##### 3. Start the application
+
 ```
   flask run
 ```
