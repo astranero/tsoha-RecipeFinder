@@ -2,15 +2,53 @@
 
 {% block content %}
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
     <div class="limiter">
         <div class="background">
             <div class="filter-background">
-                <div> Hi<b>{{username}}</b>!</div>
-                <div> phone number: <b>{{phone_number}}</b></div>
-                <div> email:<b> {{email}}</b></div>
+                <div> Hi <b>{{username}}</b>!
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">Modify username</button>
+                    <form action="/profile/{{session.id}}" method="POST">
+                        <div class="modal" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Modify username</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label required">New username</label>
+                                            <input type="text" class="form-control" id="new_username", name="new_username">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div> phone number: <b>{{phone_number}}</b>
+                    <button type="submit" class="btn btn-secondary btn-sm">Modify password</button>
+                </div>
+                <div> email:<b> {{email}}</b>
+                    <button type="submit" class="btn btn-secondary btn-sm">Modify email</button>
+                </div>
+                {% if session.role == 1 %}
+                <div> role: <b> Admin </b></div>
+                {% else %}
+                <div> role: <b> User </b></div>
+                {% endif %}
                 <div><a href="/logout">Log out</a></div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
 </body>
+
 {% endblock %}

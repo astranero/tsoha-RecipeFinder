@@ -17,6 +17,9 @@ I have created a product backlog and listed the functionalities in detail [here]
 
 The application is hosted on Heroku: https://tsoha-recipefinder.herokuapp.com/
 
+* At the moment you may create an account and login to the application as well as view user details on profile page.
+* The error messages do not show up at the moment on the application for example if creating password and the passwords do not match.
+
 ## Documentation
 
 * [Installation Instructions](https://github.com/riikkayoki/RecipeApp/blob/master/documentation/installation_instructions.md)

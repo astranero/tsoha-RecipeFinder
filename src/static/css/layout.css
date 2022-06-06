@@ -16,6 +16,19 @@ body {
     margin: 0 auto;
 }
 
+.link-color {
+    color: #212529 !important;
+}
+
+.heart-color {
+    color: #891838 !important;
+}
+
+.navbar-links {
+    align-items: center;
+}
+
+
 .navbar-color {
     background-color: #fff;
 }
@@ -24,7 +37,6 @@ body {
     width: 100%;
     height: 100%;
     background-color: #fff;
-    display: flex;
 
 }
 
@@ -45,16 +57,9 @@ body {
     background-color: #fff;
 }
 
-.food-categories {
-
-}
-
 .page-title {
     font-family: Poppins-Regular;
     font-size: 30px;
     color: rgb(69, 68, 68);
     letter-spacing: 3px;
-    text-align: center;
-    width: 90%;
-    display: block;
 }

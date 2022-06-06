@@ -1,3 +1,4 @@
+from jinja2 import pass_eval_context
 from werkzeug.security import check_password_hash
 from flask import session, abort, request
 import secrets
@@ -38,6 +39,14 @@ class UserService:
             return True
         return False
 
+    def modify_username(self, new_username, id):
+        user = self.get_current_user(id)
+        user.username = new_username
+        return self._user_repository.modify_username(user)
+
+    def get_current_user(self, id):
+        return self._user_repository.get_current_user(id)
+
     def get_current_username(self, id):
         return self._user_repository.get_current_user(id).username
 
@@ -47,7 +56,7 @@ class UserService:
     def get_current_phone_number(self, id):
         return self._user_repository.get_current_user(id).phone_number
 
-    def get_current_phone_number(self, id):
+    def get_current_role(self, id):
         return self._user_repository.get_current_user(id).role
 
     def logout(self):
