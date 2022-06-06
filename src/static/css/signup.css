@@ -16,7 +16,7 @@ body {
     margin: 0 auto;
 }
 
-.background-login {
+.background-signup {
     width: 100%;
     min-height: 100vh;
     flex-wrap: wrap;
@@ -27,13 +27,12 @@ body {
     background: #f2f2f2;
 }
 
-.wrap-login {
+.wrap-signup {
     width: 1170px;
     height: 950px;
     background: #fff;
     overflow: hidden;
     display: flex;
-
     flex-wrap: wrap;
     align-items: stretch;
     flex-direction: row-reverse;

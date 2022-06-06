@@ -49,6 +49,6 @@ CREATE TABLE IF NOT EXISTS Favorites (
 
 CREATE TABLE IF NOT EXISTS Basket (
     user_id INTEGER REFERENCES Users (id),
-    ingredient_id INTEGER REFERENCES Ingredients (id)
+    ingredient_id INTEGER REFERENCES Ingredients (id),
     UNIQUE(user_id, ingredient_id)
 );

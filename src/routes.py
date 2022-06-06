@@ -41,8 +41,17 @@ def profile(id):
 
     if request.method == "POST":
         new_username = request.form["new_username"]
-        user_service.modify_username(new_username, id)
-        return render_template("profile.html", username=new_username, email=email, role=role, phone_number=phone_number, id=id)
+        new_email = request.form["new_username"]
+        new_phone_number = request.form["new_phone_number"]
+        if new_username:
+            user_service.modify_username(new_username, id)
+            return render_template("profile.html", username=new_username, email=email, role=role, phone_number=phone_number, id=id)
+        if new_email:
+            user_service.modify_email(new_email, id)
+            return render_template("profile.html", username=username, email=new_email, role=role, phone_number=phone_number, id=id)
+        if new_phone_number:
+            user_service.modify_phone_number(new_phone_number, id)
+            return render_template("profile.html", username=username, email=email, role=role, phone_number=new_phone_number, id=id)
 
 @app.route("/favorites", methods=["GET","POST"])
 def favorites():
