@@ -3,5 +3,111 @@
 {% block content %}
 <body>
 
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
+        <div class="limiter">
+            <div class="wrap-basic font">
+                <div class="page-title-layout">Create a New Recipe</div>
+                <form action="/new-recipe" method="POST">
+                    <div>
+                        <div>
+                            <div class="text-padding">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text" id="recipe-name">Recipe name</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Recipe name" aria-describedby="recipe-name">
+                                </div>
+                            </div>
+                            <div class="text-padding">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">Write recipe description</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="Write recipe description"></textarea>
+                                  </div>
+                            </div>
+
+                            <div class="text-padding">
+                                <form action="/add-recipe" method="POST">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Add quantity" aria-label="Text input with dropdown button">
+                                        <input type="text" class="form-control" placeholder="Add measurement" aria-label="Text input with dropdown button">
+                                        <div class="input-group-append">
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                Choose an ingredient...
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <div class="dropdown-item"><div class="checkbox"><input type="checkbox"> Ingredient</div></div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" type="button">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div>
+                                    Can't find the ingredient in the list?
+                                    <button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-username">Add new ingredient here!</button>
+                                    <form action="/profile/{{session.id}}" method="POST">
+                                        <div class="modal" id="myModal-username">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Add new ingredient</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Choose ingredient category...</label>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                                See categories
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <div class="dropdown-item"><div class="checkbox"><input type="checkbox"> category name</div></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">...or create a new ingredient category</label>
+                                                            <input type="text" class="form-control" id="new_category", name="new_category">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">New Ingredient</label>
+                                                            <input type="text" class="form-control" id="new_ingredient", name="new_ingredient">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-secondary">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="text-padding">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">Write recipe instructions</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="Write recipe instructions"></textarea>
+                                  </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary font">Create Recipe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </body>
+
 </body>
 {% endblock %}

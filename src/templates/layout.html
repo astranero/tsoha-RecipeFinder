@@ -13,16 +13,13 @@
 </head>
     <body>
         <div class="limiter">
-            <div class="wrap-navbar">
+            <div class="wrap-navbar font">
                 <nav class="navbar sticky-top navbar-light navbar-color">
-                    <a class="navbar-brand page-title" href="/homepage">RecipeFinder</a>
-                    <ul class="nav navbar-links">
+                    <a class="navbar-brand navbar-title-layout" href="/homepage">RecipeFinder</a>
+                    <ul class="nav navbar-links font spacing-normal">
                         {% if session.role == 1 %}
                         <li class="nav-item">
                         <a href="/add-recipe" class="nav-link active link-color"> Add Recipe </a>
-                        </li>
-                        <li class="nav-item">
-                        <a href="/add-ingredient" class="nav-link active link-color"> Add Ingredient </a>
                         </li>
                         {% endif %}
                         <li class="nav-item">
