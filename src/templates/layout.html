@@ -19,7 +19,13 @@
                     <ul class="nav navbar-links font spacing-normal">
                         {% if session.role == 1 %}
                         <li class="nav-item">
-                        <a href="/add-recipe" class="nav-link active link-color"> Add Recipe </a>
+                            <a href="/manage-ingredient-categories" class="nav-link active link-color"> Manage Ingredient Categories </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/manage-ingredients" class="nav-link active link-color"> Manage Ingredients </a>
+                        </li>
+                        <li class="nav-item">
+                        <a href="/manage-recipes" class="nav-link active link-color"> Manage Recipes </a>
                         </li>
                         {% endif %}
                         <li class="nav-item">

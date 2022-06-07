@@ -126,6 +126,15 @@ body {
     padding-bottom: 1cm;
 }
 
+
+.top-padding {
+    padding-top: 0.3cm;
+}
+
+.left-padding {
+    padding-left: 0.3cm;
+}
+
 /* PICTURES  */
 
 .profile-picture {

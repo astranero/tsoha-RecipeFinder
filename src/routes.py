@@ -63,13 +63,17 @@ def logout():
     user_service.logout()
     return redirect("/")
 
-@app.route("/add-recipe", methods=["GET","POST"])
-def add_recipe():
-    return render_template("add_recipe.html")
+@app.route("/manage-recipes", methods=["GET","POST"])
+def manage_recipes():
+    return render_template("manage_recipes.html")
 
-@app.route("/add-ingredient", methods=["GET","POST"])
-def add_ingredient():
-    return render_template("add_ingredient.html")
+@app.route("/manage-ingredients", methods=["GET","POST"])
+def manage_ingredients():
+    return render_template("manage_ingredients.html")
+
+@app.route("/manage-ingredient-categories", methods=["GET","POST"])
+def manage_ingredient_categories():
+    return render_template("manage_ingredient_categories.html")
 
 @app.route("/basket", methods=["GET","POST"])
 def basket():
