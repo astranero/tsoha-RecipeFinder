@@ -70,3 +70,7 @@ def add_recipe():
 @app.route("/add-ingredient", methods=["GET","POST"])
 def add_ingredient():
     return render_template("add_ingredient.html")
+
+@app.route("/basket", methods=["GET","POST"])
+def basket():
+    return render_template("basket.html")

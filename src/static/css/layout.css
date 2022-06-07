@@ -16,37 +16,43 @@ body {
     margin: 0 auto;
 }
 
-.link-color {
-    color: #212529 !important;
-}
 
-.heart-color {
-    color: #891838 !important;
-}
+/* WRAPS */
 
-.navbar-links {
-    align-items: center;
-}
-
-
-.navbar-color {
-    background-color: #fff;
-}
-
-.wrap {
+.wrap-navbar {
     width: 100%;
     height: 100%;
     background-color: #fff;
 
 }
 
-.search-box {
+.wrap-all-recipes {
+    width: 95%;
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex-direction: row-reverse;
+    box-sizing: border-box;
     position: absolute;
-    top: 20%;
-    left: 80%;
+    background-position: center;
+    top: 35%;
+    left: 2.5%;
 }
 
-.filter-background {
+.wrap-profile {
+    width: 95%;
+    align-items: center;
+    position: absolute;
+    background-position: center;
+    top: 13%;
+    left: 2.5%;
+    background-color: #fff;
+}
+
+.wrap-filter {
     width: 95%;
     height: 15%;
     align-items: center;
@@ -56,6 +62,34 @@ body {
     left: 2.5%;
     background-color: #fff;
 }
+
+/* COLORS */
+
+.link-color {
+    color: #212529 !important;
+}
+
+.heart-color {
+    color: #891838 !important;
+}
+
+.navbar-color {
+    background-color: #fff;
+}
+
+/* POSITIONING  */
+
+.navbar-links {
+    align-items: center;
+}
+
+.search-box-location {
+    position: absolute;
+    top: 20%;
+    left: 80%;
+}
+
+/* TEXT EDITING  */
 
 .page-title {
     font-family: Poppins-Regular;
@@ -82,26 +116,8 @@ body {
     padding-bottom: 1cm;
 }
 
-.wrap-profile {
-    width: 95%;
-    align-items: center;
-    position: absolute;
-    background-position: center;
-    top: 13%;
-    left: 2.5%;
-    background-color: #fff;
-}
 
-.background {
-    width: 100%;
-    min-height: 100vh;
-    flex-wrap: wrap;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background: #f2f2f2;
-}
+/* PICTURES  */
 
 .profile-picture {
     width: 100%;
@@ -113,18 +129,3 @@ body {
     z-index: 1;
 }
 
-.wrap-all-recipes {
-    width: 95%;
-    height: 100%;
-    background: #fff;
-    overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    flex-direction: row-reverse;
-    box-sizing: border-box;
-    position: absolute;
-    background-position: center;
-    top: 35%;
-    left: 2.5%;
-}

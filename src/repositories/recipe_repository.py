@@ -56,7 +56,7 @@ class RecipeRepository:
                     WHERE recipe_id=:recipe_id"
             self._db.session.execute(sql, values_to_db)
 
-            self._db.connection.commit()
+            self._db.session.commit()
         except:
             return False
         return True

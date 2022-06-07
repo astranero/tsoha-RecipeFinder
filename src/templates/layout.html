@@ -13,34 +13,44 @@
 </head>
     <body>
         <div class="limiter">
-            <nav class="navbar sticky-top navbar-light navbar-color">
-                <a class="navbar-brand page-title" href="/homepage">RecipeFinder</a>
-                <ul class="nav navbar-links">
-                    {% if session.role == 1 %}
-                    <li class="nav-item">
-                    <a href="/add-recipe" class="nav-link active link-color"> Add Recipe </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="/add-ingredient" class="nav-link active link-color"> Add Ingredient </a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                    <a class="nav-link active heart-color" href="/favorites">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
-                        <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
-                        </svg>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link active link-color" href="/profile/{{session.id}}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
-                    </a>
-                    </li>
-                </ul>
-            </nav>
+            <div class="wrap-navbar">
+                <nav class="navbar sticky-top navbar-light navbar-color">
+                    <a class="navbar-brand page-title" href="/homepage">RecipeFinder</a>
+                    <ul class="nav navbar-links">
+                        {% if session.role == 1 %}
+                        <li class="nav-item">
+                        <a href="/add-recipe" class="nav-link active link-color"> Add Recipe </a>
+                        </li>
+                        <li class="nav-item">
+                        <a href="/add-ingredient" class="nav-link active link-color"> Add Ingredient </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link active link-color" href="/basket">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                </svg>
+                            </a>
+                            </li>
+                        <li class="nav-item">
+                        <a class="nav-link active heart-color" href="/favorites">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                            <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                            </svg>
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link active link-color" href="/profile/{{session.id}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg>
+                        </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </body>
 {% block content %}{% endblock %}
 
