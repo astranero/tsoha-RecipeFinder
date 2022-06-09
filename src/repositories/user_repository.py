@@ -47,7 +47,7 @@ class UserRepository:
                                     WHERE phone_number=:phone_number",
                                     {"phone_number":phone_number}).fetchall())
 
-    def modify_user_details(self, new_user_object):
+    def modify_user_details(self, new_user_object: User):
         values_to_db = {"user_id":new_user_object.user_id,
                         "username":new_user_object.username,
                         "password":new_user_object.password,
