@@ -47,24 +47,31 @@ class UserRepository:
                                     WHERE phone_number=:phone_number",
                                     {"phone_number":phone_number}).fetchall())
 
-    def modify_user(self, new_user_object):
+    def modify_user_details(self, new_user_object):
         values_to_db = {"user_id":new_user_object.user_id,
-                        "username":new_user_object.username}
+                        "username":new_user_object.username,
+                        "password":new_user_object.password,
+                        "phone_number":new_user_object.phone_number,
+                        "email": new_user_object.email}
         try:
             sql ="UPDATE Users SET \
-                    username=:username \
+                    username=:username, password=:password, \
+                    phone_number=:phone_number, email=:email \
                     WHERE id=:user_id"
+
             self._db.session.execute(sql, values_to_db)
             self._db.session.commit()
-            print("onnistui")
         except:
-            print("ei onnistunut")
             return False
+        return True
 
     def get_current_user(self, id):
-        sql = self._db.session.execute("SELECT * FROM Users WHERE id=:id", \
-                                        {"id":id}).fetchone()
-        return self.create_user_from_result(sql)
+        try:
+            sql = self._db.session.execute("SELECT * FROM Users WHERE id=:id", \
+                                            {"id":id}).fetchone()
+            return self.create_user_from_result(sql)
+        except:
+            return False
 
     def create_user_from_result(self, result_row) -> User:
         if not result_row:

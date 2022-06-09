@@ -58,7 +58,7 @@ class UserService:
         return self._user_repository.get_current_user(id)
 
     def get_current_username(self, id):
-        return self._user_repository.get_current_user(id).username
+        return self._user_repository.get_current_user(id)
 
     def get_current_email(self, id):
         return self._user_repository.get_current_user(id).email

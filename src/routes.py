@@ -1,7 +1,7 @@
 from app import app
-from flask import render_template, request, redirect, flash
+from flask import render_template, request, redirect
 from services.user_service import user_service
-from entities.user import User
+from services.ingredient_category_service import ingredient_category_service
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -32,16 +32,16 @@ def homepage():
 
 @app.route("/profile/<int:id>", methods=["GET","POST"])
 def profile(id):
-    username = user_service.get_current_username(id)
-    email = user_service.get_current_email(id)
-    phone_number = user_service.get_current_phone_number(id)
-    role = user_service.get_current_role(id)
     if request.method == "GET":
+        username = user_service.get_current_username(id)
+        email = user_service.get_current_email(id)
+        phone_number = user_service.get_current_phone_number(id)
+        role = user_service.get_current_role(id)
         return render_template("profile.html", username=username, email=email, role=role, phone_number=phone_number, id=id)
 
     if request.method == "POST":
         new_username = request.form["new_username"]
-        new_email = request.form["new_username"]
+        new_email = request.form["new_email"]
         new_phone_number = request.form["new_phone_number"]
         if new_username:
             user_service.modify_username(new_username, id)
@@ -56,7 +56,6 @@ def profile(id):
 @app.route("/favorites", methods=["GET","POST"])
 def favorites():
     return render_template("favorites.html")
-
 
 @app.route("/logout", methods=["GET","POST"])
 def logout():
@@ -73,7 +72,18 @@ def manage_ingredients():
 
 @app.route("/manage-ingredient-categories", methods=["GET","POST"])
 def manage_ingredient_categories():
-    return render_template("manage_ingredient_categories.html")
+    ingredient_categories = ingredient_category_service.get_all_categories()
+    if request.method == "GET":
+        return render_template("manage_ingredient_categories.html", ingredient_categories=ingredient_categories)
+    if request.method == "POST":
+        new_category = request.form["new_category"]
+        if new_category:
+            ingredient_category_service.create_category(new_category)
+            redirect("/manage-ingredient-categories/add-category")
+
+@app.route("/manage-ingredient-categories/add-category")
+def add_category():
+    return redirect("/manage-ingredient-categories")
 
 @app.route("/basket", methods=["GET","POST"])
 def basket():

@@ -9,7 +9,7 @@ class IngredientCategoryService:
     def create_category(self, category_name):
         return self._repository.create(category_name)
 
-    def get_categories(self):
-        return self._reading_tip_repository.get_all_categories()
+    def get_all_categories(self):
+        return self._repository.get_all_categories()
 
 ingredient_category_service = IngredientCategoryService()
