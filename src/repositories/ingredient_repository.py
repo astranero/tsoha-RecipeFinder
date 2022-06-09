@@ -4,13 +4,18 @@ class IngredientRepository:
     def __init__(self, db=default_db):
         self._db = db
 
-    def create_ingredient(self, ingredient_name):
+    def create_ingredient(self, ingredient_name, category_id):
         try:
-            sql = "INSERT INTO Ingredients (ingredient_name) \
-                    VALUES (:ingredient_name)"
-            self._db.session.execute(sql, ingredient_name)
+            values_to_db = {"ingredient_name":ingredient_name, \
+                            "category_name":category_id \
+                                }
+            sql = "INSERT INTO Ingredients (ingredient_name, category_id) \
+                    VALUES (:ingredient_name, :category_name)"
+            self._db.session.execute(sql, values_to_db)
             self._db.session.commit()
+            print("jee onnistui")
         except:
+            print("faill")
             return False
 
     def check_if_ingredient_exists(self, ingredient_name):
@@ -22,14 +27,16 @@ class IngredientRepository:
             return False
         return True
 
-    def get_all_ingredients_in_category(self, category_id):
+    def get_all_ingredients_with_categories(self, category_id):
         try:
-            sql = "SELECT IngredientCategory, Ingredient.ingredient_name \
+            sql = "SELECT IngredientCategory.category_name, Ingredient.ingredient_name \
                     FROM Ingredient, IngredientCategory \
                     WHERE Ingredient.category_id = IngredientCategory.id \
                         AND Ingredient.category_id=:category_id"
             self._db.session.execute(sql, category_id).fetchall()
+            print("onnistui")
         except:
+            print("ei onnistunut")
             return False
 
 

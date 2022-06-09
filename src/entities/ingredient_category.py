@@ -1,10 +1,13 @@
 
 class IngredientCategory:
-    def __init__(self, category_name):
+    def __init__(self, category_id=None, category_name=str):
+        self.category_id = category_id
         self.category_name = category_name
 
     def format(self):
         category = []
+        if self.category_id:
+            category.append(f'{self.category_id}')
         if self.category_name:
             word = str(self.category_name)
             word2 = word.replace("(", "")

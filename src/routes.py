@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, url_for
 from services.user_service import user_service
 from services.ingredient_category_service import ingredient_category_service
+from services.ingredient_service import ingredient_service
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -72,7 +73,15 @@ def manage_recipes():
 
 @app.route("/manage-ingredients", methods=["GET","POST"])
 def manage_ingredients():
-    return render_template("manage_ingredients.html")
+    ingredient_categories = ingredient_category_service.get_all_categories()
+    return render_template("manage_ingredients.html", ingredient_categories=ingredient_categories)
+
+@app.route("/manage-ingredients/add-ingredient", methods=["GET","POST"])
+def add_ingredient():
+    new_ingredient = request.form["new_ingredient"]
+    category_id = request.form["category_id"]
+    ingredient_service.create_ingredient(new_ingredient, category_id)
+    return redirect("/manage-ingredients")
 
 @app.route("/manage-ingredient-categories", methods=["GET","POST"])
 def manage_ingredient_categories():

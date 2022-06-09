@@ -1,11 +1,9 @@
 DROP TABLE IF EXISTS Users CASCADE;
-DROP TABLE IF EXISTS Recipes CASCADE;
-DROP TABLE IF EXISTS Favorites CASCADE;
 DROP TABLE IF EXISTS IngredientCategory CASCADE;
 DROP TABLE IF EXISTS Ingredients CASCADE;
+DROP TABLE IF EXISTS Recipes CASCADE;
+DROP TABLE IF EXISTS Favorites CASCADE;
 DROP TABLE IF EXISTS RecipeIngredients CASCADE;
-DROP TABLE IF EXISTS Quantity CASCADE;
-DROP TABLE IF EXISTS Measurements CASCADE;
 
 CREATE TABLE IF NOT EXISTS Users (
     id SERIAL PRIMARY KEY,
@@ -14,14 +12,6 @@ CREATE TABLE IF NOT EXISTS Users (
     role INTEGER,
     phone_number TEXT,
     email TEXT
-);
-
-CREATE TABLE IF NOT EXISTS Recipes (
-    id SERIAL PRIMARY KEY,
-    recipe_name TEXT UNIQUE,
-    decription TEXT,
-    cook_time TEXT,
-    instructions TEXT
 );
 
 CREATE TABLE IF NOT EXISTS IngredientCategory (
@@ -34,6 +24,15 @@ CREATE TABLE IF NOT EXISTS Ingredients (
     ingredient_name TEXT UNIQUE,
     category_id INTEGER REFERENCES IngredientCategory (id)
 );
+
+CREATE TABLE IF NOT EXISTS Recipes (
+    id SERIAL PRIMARY KEY,
+    recipe_name TEXT UNIQUE,
+    decription TEXT,
+    cook_time TEXT,
+    instructions TEXT
+);
+
 
 CREATE TABLE IF NOT EXISTS RecipeIngredients (
     recipe_id INTEGER REFERENCES Recipes,

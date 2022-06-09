@@ -24,14 +24,21 @@
                                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                       </div>
                                       <div class="modal-body">
-                                          <div class="mb-3">
+                                        <div class="mb-3">
                                               <label class="form-label required">Choose ingredient category...</label>
                                               <div class="dropdown">
                                                   <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                                   See categories
                                                   </button>
                                                   <div class="dropdown-menu">
-                                                      <div class="dropdown-item"><div class="radio"><input type="radio"> category name</div></div>
+                                                      <div class="dropdown-item">
+                                                        {% for category in ingredient_categories %}
+                                                        <div class="radio">
+                                                          <input type="radio">
+                                                          {{ category.category_name }}
+                                                        </div>
+                                                        {% endfor %}
+                                                      </div>
                                                   </div>
                                               </div>
                                               <div class="top-padding">
@@ -40,7 +47,6 @@
                                                 <span>Add it first in the</span>
                                                 <a href="/manage-ingredient-categories" class="txt2">Ingredient Category Management tools!</a>
                                               </div>
-                    
                                           <div class="mb-3">
                                               <label class="form-label required">New Ingredient</label>
                                               <input type="text" class="form-control" id="new_ingredient", name="new_ingredient">

@@ -6,9 +6,11 @@ class RecipeIngredientsRepository:
 
     def add_ingredient_to_recipe(self, recipe_id, ingredient_id):
         try:
+            values_to_db = {"recipe_id":recipe_id,
+                            "ingredient_id":ingredient_id}
             sql = "INSERT INTO RecipeIngredients (recipe_id, ingredient_id) \
                     VALUES (:recipe_id, :ingredient_id)"
-            self._db.session.execute(sql, (recipe_id, ingredient_id))
+            self._db.session.execute(sql, values_to_db)
             self._db.session.commit()
         except:
             return False
