@@ -6,10 +6,7 @@ class IngredientService:
         self._repository = repository
 
     def create_ingredient(self, ingredient_name, category_id):
-        if self.check_if_ingredient_exists(ingredient_name):
-            return False
-        if not category_id:
-            return False
+        print("moi")
         return self._repository.create_ingredient(ingredient_name, category_id)
 
     def check_if_ingredient_exists(self, ingredient_name):

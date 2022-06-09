@@ -78,8 +78,8 @@ def manage_ingredients():
 
 @app.route("/manage-ingredients/add-ingredient", methods=["GET","POST"])
 def add_ingredient():
-    new_ingredient = request.form["new_ingredient"]
     category_id = request.form["category_id"]
+    new_ingredient = request.form["new_ingredient"]
     ingredient_service.create_ingredient(new_ingredient, category_id)
     return redirect("/manage-ingredients")
 

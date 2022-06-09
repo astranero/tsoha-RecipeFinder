@@ -31,11 +31,12 @@
                                                   See categories
                                                   </button>
                                                   <div class="dropdown-menu">
-                                                      <div class="dropdown-item">
+                                                      <div class="dropdown-item" required>
                                                         {% for category in ingredient_categories %}
                                                         <div class="radio">
-                                                          <input type="radio">
+                                                          <input type="radio" value="{{category.id}}" id="category_id", name="category_id" >
                                                           {{ category.category_name }}
+                                                        </input>
                                                         </div>
                                                         {% endfor %}
                                                       </div>
