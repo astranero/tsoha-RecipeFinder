@@ -5,10 +5,10 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <div class="wrap-basic font">
-        <div class="page-title-layout"> Hi <b>{{session.username}}</b>!</div>
+        <div class="page-title-layout"> Hi <b>{{username}}</b>!</div>
         <div class="text-layout">Do you want to change username?
         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-username">MODIFY IT HERE!</button>
-        <form id=new_username action="/profile/{{session.id}}" method="POST">
+        <form action="/profile/{{session.id}}/modify-username" method="POST">
             <div class="modal" id="myModal-username">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -33,7 +33,7 @@
 
         <div class="text-layout"> You phone number is <b>{{phone_number}} </b>
             <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-number">MODIFY IT HERE!</button>
-            <form action="/profile/{{session.id}}" method="POST">
+            <form action="/profile/{{session.id}}/modify-phone-number" method="POST">
                 <div class="modal" id="myModal-number">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -57,7 +57,7 @@
         </div>
         <div class="text-layout"> Your email is <b> {{email}}</b>
             <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-email">MODIFY IT HERE!</button>
-            <form action="/profile/{{session.id}}" method="POST">
+            <form action="/profile/{{session.id}}/modify-email" method="POST">
                 <div class="modal" id="myModal-email">
                     <div class="modal-dialog">
                         <div class="modal-content">

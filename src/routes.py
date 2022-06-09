@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
 from services.user_service import user_service
 from services.ingredient_category_service import ingredient_category_service
 
@@ -32,26 +32,30 @@ def homepage():
 
 @app.route("/profile/<int:id>", methods=["GET","POST"])
 def profile(id):
+    username = user_service.get_current_username(id)
+    email = user_service.get_current_email(id)
+    phone_number = user_service.get_current_phone_number(id)
+    role = user_service.get_current_role(id)
     if request.method == "GET":
-        username = user_service.get_current_username(id)
-        email = user_service.get_current_email(id)
-        phone_number = user_service.get_current_phone_number(id)
-        role = user_service.get_current_role(id)
         return render_template("profile.html", username=username, email=email, role=role, phone_number=phone_number, id=id)
 
-    if request.method == "POST":
-        new_username = request.form["new_username"]
-        new_email = request.form["new_email"]
-        new_phone_number = request.form["new_phone_number"]
-        if new_username:
-            user_service.modify_username(new_username, id)
-            return render_template("profile.html", username=new_username, email=email, role=role, phone_number=phone_number, id=id)
-        if new_email:
-            user_service.modify_email(new_email, id)
-            return render_template("profile.html", username=username, email=new_email, role=role, phone_number=phone_number, id=id)
-        if new_phone_number:
-            user_service.modify_phone_number(new_phone_number, id)
-            return render_template("profile.html", username=username, email=email, role=role, phone_number=new_phone_number, id=id)
+@app.route("/profile/<int:id>/modify-username", methods=["GET", "POST"])
+def modify_username(id):
+    new_username = request.form["new_username"]
+    user_service.modify_username(new_username, id)
+    return redirect('/profile/'+str(id))
+
+@app.route("/profile/<int:id>/modify-phone-number", methods=["GET", "POST"])
+def modify_phone_number(id):
+    new_phone_number = request.form["new_phone_number"]
+    user_service.modify_phone_number(new_phone_number, id)
+    return redirect('/profile/'+str(id))
+
+@app.route("/profile/<int:id>/modify-email", methods=["GET", "POST"])
+def modify_email(id):
+    new_email = request.form["new_email"]
+    user_service.modify_email(new_email, id)
+    return redirect('/profile/'+str(id))
 
 @app.route("/favorites", methods=["GET","POST"])
 def favorites():
@@ -75,15 +79,13 @@ def manage_ingredient_categories():
     ingredient_categories = ingredient_category_service.get_all_categories()
     if request.method == "GET":
         return render_template("manage_ingredient_categories.html", ingredient_categories=ingredient_categories)
-    if request.method == "POST":
-        new_category = request.form["new_category"]
-        if new_category:
-            ingredient_category_service.create_category(new_category)
-            redirect("/manage-ingredient-categories/add-category")
 
-@app.route("/manage-ingredient-categories/add-category")
+@app.route("/manage-ingredient-categories/add-category", methods=["GET", "POST"])
 def add_category():
+    new_category = request.form["new_category"]
+    ingredient_category_service.create_category(new_category)
     return redirect("/manage-ingredient-categories")
+
 
 @app.route("/basket", methods=["GET","POST"])
 def basket():

@@ -24,7 +24,7 @@ class IngredientRepository:
 
     def get_all_ingredients_in_category(self, category_id):
         try:
-            sql = "SELECT Ingredient.ingredient_name \
+            sql = "SELECT IngredientCategory, Ingredient.ingredient_name \
                     FROM Ingredient, IngredientCategory \
                     WHERE Ingredient.category_id = IngredientCategory.id \
                         AND Ingredient.category_id=:category_id"

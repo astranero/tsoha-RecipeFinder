@@ -15,43 +15,45 @@
                     </form>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-modify-category">Modify chosen ingredient category</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-new-category">Add ingredient category</button>
-                    <form action="/manage-ingredient-categories" method="POST">
-                        <div class="modal" id="myModal-new-category">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Add new ingredient category</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label class="form-label required">New Ingredient Category</label>
-                                            <input type="text" class="form-control" id="new_category", name="new_category">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-secondary">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    <form action="/manage-ingredient-categories/add-category" method="POST">
+                      <div class="modal" id="myModal-new-category">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title">Add New Category</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div class="mb-3">
+                                          <label class="form-label required">New Category name</label>
+                                          <input type="text" class="form-control" id="new_category", name="new_category">
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="submit" class="btn btn-secondary">Submit</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
                   </div>
                   <tr>
                     <th scope="col">Select</th>
-                    <th scope="col">Ingredient Category Name</th>
+                    <th scope="col">Categories</th>
                     <th scope="col">Ingredients in the category</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% for category in ingredient_categories %}
                   <tr>
                     <th scope="row">
                         <input type="radio" name="radios" id="radio1" />
                         <label for="radio1"></label>
                       </th>
                     </th>
-                    <td>ingredient category name</td>
-                    <td>ingredients in the category</td>
+                    <td>{{category}}</td>
+                    <td></td>
+                    {% endfor %}
                   </tr>
                 </tbody>
               </table>

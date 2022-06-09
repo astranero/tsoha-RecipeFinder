@@ -49,7 +49,7 @@ class UserService:
         user.email = new_email
         return self._user_repository.modify_user(user)
 
-    def modify_username(self, new_phone_number, id):
+    def modify_phone_number(self, new_phone_number, id):
         user = self.get_current_user(id)
         user.phone_number = new_phone_number
         return self._user_repository.modify_user(user)
@@ -57,7 +57,9 @@ class UserService:
     def get_current_user(self, id):
         return self._user_repository.get_current_user(id)
 
-
+    def get_current_username(self, id):
+        print(id)
+        return self._user_repository.get_current_user(id).username
 
     def get_current_email(self, id):
         return self._user_repository.get_current_user(id).email
