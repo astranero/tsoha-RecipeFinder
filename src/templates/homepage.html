@@ -11,13 +11,14 @@
                         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
-
                 <div class="dropdown">
+                    {% for category in ingredient_categories %}
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Fruits and Vegetables
-                    </button>
+                    {{category.category_name }}
+                     </button>
+                     {% endfor %}
                     <div class="dropdown-menu">
-                        <div class="dropdown-item"><div class="checkbox"><input type="checkbox"> Banana</div></div>
+                        <div class="dropdown-item"><div class="checkbox"><input type="checkbox"> Example</div></div>
                     </div>
                 </div>
             </div>

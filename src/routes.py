@@ -29,7 +29,8 @@ def signup():
 
 @app.route("/homepage", methods=["GET","POST"])
 def homepage():
-    return render_template("homepage.html", user_role = user_service.user_role())
+    ingredient_categories = ingredient_category_service.get_all_categories()
+    return render_template("homepage.html", user_role = user_service.user_role(), ingredient_categories=ingredient_categories)
 
 @app.route("/profile/<int:id>", methods=["GET","POST"])
 def profile(id):
@@ -74,12 +75,13 @@ def manage_recipes():
 @app.route("/manage-ingredients", methods=["GET","POST"])
 def manage_ingredients():
     ingredient_categories = ingredient_category_service.get_all_categories()
-    return render_template("manage_ingredients.html", ingredient_categories=ingredient_categories)
+    if request.method == "GET":
+        return render_template("manage_ingredients.html", ingredient_categories=ingredient_categories)
 
 @app.route("/manage-ingredients/add-ingredient", methods=["GET","POST"])
 def add_ingredient():
-    category_id = request.form["category_id"]
     new_ingredient = request.form["new_ingredient"]
+    category_id = request.form["category_id"]
     ingredient_service.create_ingredient(new_ingredient, category_id)
     return redirect("/manage-ingredients")
 

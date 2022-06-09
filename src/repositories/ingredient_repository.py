@@ -5,23 +5,18 @@ class IngredientRepository:
         self._db = db
 
     def create_ingredient(self, ingredient_name, category_id):
-        try:
-            values_to_db = {"ingredient_name":ingredient_name, \
-                            "category_name":category_id \
-                                }
-            sql = "INSERT INTO Ingredients (ingredient_name, category_id) \
-                    VALUES (:ingredient_name, :category_name)"
-            self._db.session.execute(sql, values_to_db)
-            self._db.session.commit()
-            print("jee onnistui")
-        except:
-            print("faill")
-            return False
+        values_to_db = {"ingredient_name":ingredient_name,
+                        "category_id":category_id}
+        sql = "INSERT INTO Ingredients (ingredient_name, category_id) \
+                    VALUES (:ingredient_name, :category_id)"
+        self._db.session.execute(sql, values_to_db)
+        self._db.session.commit()
+        print("jee onnistui")
 
     def check_if_ingredient_exists(self, ingredient_name):
         sql = "SELECT ingredient_name \
                 FROM Ingredients \
-                WHERE ingredient_name =:ingredient_name"
+                WHERE ingredient_name=:ingredient_name"
         query_result = self._db.session.execute(sql, ingredient_name)
         if not query_result:
             return False
