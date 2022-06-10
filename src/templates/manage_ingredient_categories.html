@@ -10,11 +10,16 @@
             <table class="table table-striped">
                 <thead>
                   <div class="text-padding">
-                    <form id="delete_category" action="/manage-ingredient-categories" method="POST">
-                      <button type="submit" class="btn btn-outline-secondary">Delete chosen ingredient category</button>
-                    </form>
+                    <button type="submit" class="btn btn-outline-secondary" data-bs-target="#delete_category">Delete chosen ingredient category</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-modify-category">Modify chosen ingredient category</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-new-category">Add ingredient category</button>
+                    <form id="delete_category" action="/manage-ingredient-categories/delete-category" method="POST">
+
+                    </form>
+                    <form id="myModal-modify-category" action="/manage-ingredient-categories/modify-category" method="POST">
+                    
+                    </form>
+
                     <form action="/manage-ingredient-categories/add-category" method="POST">
                       <div class="modal" id="myModal-new-category">
                           <div class="modal-dialog">
@@ -35,7 +40,7 @@
                               </div>
                           </div>
                       </div>
-                  </form>
+                    </form>
                   </div>
                   <tr>
                     <th scope="col">Select</th>
@@ -47,14 +52,14 @@
                   {% for category in ingredient_categories %}
                   <tr>
                     <th scope="row">
-                        <input type="radio" name="radios" id="radio1" />
+                        <input type="radio" name="radios" id="radio1"></input>
                         <label for="radio1"></label>
                       </th>
                     </th>
                     <td>{{category.category_name}}</td>
-                    <td></td>
-                    {% endfor %}
+                    <td id="category_id" name="category_id" value="{{category[0]}}">{{ category.ingredient_name }}</td>
                   </tr>
+                  {% endfor %}
                 </tbody>
               </table>
         </div>

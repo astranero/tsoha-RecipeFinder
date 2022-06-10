@@ -11,10 +11,10 @@ class IngredientService:
 
     def check_if_ingredient_exists(self, ingredient_name):
         return self._repository.check_if_ingredient_exists(ingredient_name)
-    
+
     def get_all_ingredients(self):
         return self._repository.get_all_ingredients()
-
+    
     def get_all_ingredients_with_categories(self):
         return self._repository.get_all_ingredients_with_categories()
 

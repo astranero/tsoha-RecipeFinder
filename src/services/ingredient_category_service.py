@@ -11,8 +11,14 @@ class IngredientCategoryService:
     def get_all_categories(self):
         return self._repository.get_all_categories()
 
+    def get_all_category_ids(self):
+        return self._repository.get_all_categories()
+
+    def get_all_ingredients_in_category(self, category_id):
+        return self._repository.get_all_ingredients_in_category(category_id)
+
     def delete_category(self, category_id):
         #category can be deleted only if there is no ingredients
-        return self.repository.delete_category(category_id)
+        return self._repository.delete_category(category_id)
 
 ingredient_category_service = IngredientCategoryService()

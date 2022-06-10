@@ -16,12 +16,7 @@ class Recipe:
         if self.description:
             recipe.append(f'{self.description}')
         if self.cook_time:
-            time = str(self.cook_time)
-            time2 = time.replace("(", "")
-            time3 = time2.replace(")", "")
-            time4 = time3.replace("'", "")
-            time5 = time4.replace(",", "")
-            recipe.append(f'{time5}')
+            recipe.append(f'{self.cook_time}')
         if self.instructions:
             recipe.append(f'{self.instructions}')
         return ", ".join(recipe)

@@ -25,12 +25,6 @@ CREATE TABLE IF NOT EXISTS Ingredients (
     category_id INTEGER REFERENCES IngredientCategory (id)
 );
 
-CREATE TABLE IF NOT EXISTS CategoryIngredients (
-    category_id INTEGER REFERENCES IngredientCategory (id),
-    ingredient_id INTEGER REFERENCES Ingredients (id),
-    UNIQUE(category_id, ingredient_id)
-);
-
 CREATE TABLE IF NOT EXISTS Recipes (
     id SERIAL PRIMARY KEY,
     recipe_name TEXT UNIQUE,

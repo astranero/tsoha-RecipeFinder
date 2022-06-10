@@ -93,15 +93,16 @@ def add_ingredient():
 @app.route("/manage-ingredient-categories", methods=["GET","POST"])
 def manage_ingredient_categories():
     ingredient_categories = ingredient_category_service.get_all_categories()
+    category_id = request.form["category_id"]
+    ingredients_in_category = ingredient_category_service.get_all_ingredients_in_category(category_id)
     if request.method == "GET":
-        return render_template("manage_ingredient_categories.html", ingredient_categories=ingredient_categories)
+        return render_template("manage_ingredient_categories.html", ingredient_categories=ingredient_categories, ingredients_in_category=ingredients_in_category)
 
 @app.route("/manage-ingredient-categories/add-category", methods=["GET", "POST"])
 def add_category():
     new_category = request.form["new_category"]
     ingredient_category_service.create_category(new_category)
     return redirect("/manage-ingredient-categories")
-
 
 @app.route("/basket", methods=["GET","POST"])
 def basket():

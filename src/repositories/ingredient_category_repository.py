@@ -31,19 +31,12 @@ class IngredientCategoryRepository:
         query_result = self._db.session.execute(sql).fetchall()
         return query_result
 
-    def create_category_from_result(self, result_row: IngredientCategory):
-        if not result_row:
-            return None
-        return IngredientCategory(
-            category_id=result_row[0],
-            category_name=result_row[1]
-        )
-
-    def create_categories_from_results(self, result_rows):
-        names = []
-        for row in result_rows:
-            names.append(self.create_category_from_result(row))
-        return names
+    def get_all_ingredients_in_category(self, category_id):
+        sql = "SELECT Ingredients.ingredient_name \
+                    FROM Ingredients LEFT JOIN IngredientCategory ON \
+                    Ingredients.category_id = IngredientCategory.id \
+                    WHERE Ingredients.category_id =:category_id"
+        return self._db.session.execute(sql, {"category_id":category_id}).fetchall()
 
     def delete_category(self, id):
         try:

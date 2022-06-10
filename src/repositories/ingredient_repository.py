@@ -31,7 +31,5 @@ class IngredientRepository:
                     FROM Ingredients LEFT JOIN IngredientCategory ON \
                     Ingredients.category_id = IngredientCategory.id"
         return self._db.session.execute(sql).fetchall()
-        
-
 
 ingredient_repository = IngredientRepository()
