@@ -33,9 +33,8 @@
                                                   <div class="dropdown-menu">
                                                       <div class="dropdown-item">
                                                         {% for category in ingredient_categories %}
-                                                        <div class="radio" value="{{category.id}}">
-                                                          <input type="radio" id=category_id name="category_id">
-                                                          {{ category.category_name }}
+                                                        <div class="radio">
+                                                          <input type="radio" id="category_id" name="category_id" value="{{category[0]}}">{{category.category_name}}
                                                         </input>
                                                         </div>
                                                         {% endfor %}
@@ -63,21 +62,23 @@
                   </div>
                   <tr>
                     <th scope="col">Select</th>
-                    <th scope="col">Ingredient name</th>
-                    <th scope="col">Ingredient category</th>
+                    <th scope="col">Ingredient Name</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Usage</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% for ingredient in ingredients %}
                   <tr>
                     <th scope="row">
                         <input type="radio" name="radios" id="radio1" />
                         <label for="radio1"></label>
                       </th>
                     </th>
-                    <td>ingredient name</td>
-                    <td>category</td>
-                    <td>number of usage</td>
+                    <td>{{ingredient.ingredient_name}}</td>
+                    <td>{{ingredient.category_name}}</td>
+                    {% endfor %}
+                    <td>moi</td>
                   </tr>
                 </tbody>
               </table>

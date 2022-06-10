@@ -14,7 +14,7 @@ class IngredientCategory:
             word3 = word2.replace(")", "")
             word4 = word3.replace("'", "")
             word5 = word4.replace(",", "")
-            category.append(f'{word5}')
+            category.append(f'{word}')
         return ", ".join(category)
 
     def __repr__(self):

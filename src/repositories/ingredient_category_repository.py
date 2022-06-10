@@ -27,9 +27,9 @@ class IngredientCategoryRepository:
         return True
 
     def get_all_categories(self):
-        sql = "SELECT * FROM IngredientCategory"
+        sql = "SELECT id, category_name FROM IngredientCategory"
         query_result = self._db.session.execute(sql).fetchall()
-        return self.create_categories_from_results(query_result)
+        return query_result
 
     def create_category_from_result(self, result_row: IngredientCategory):
         if not result_row:

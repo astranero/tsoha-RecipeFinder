@@ -11,7 +11,6 @@ class IngredientRepository:
                     VALUES (:ingredient_name, :category_id)"
         self._db.session.execute(sql, values_to_db)
         self._db.session.commit()
-        print("jee onnistui")
 
     def check_if_ingredient_exists(self, ingredient_name):
         sql = "SELECT ingredient_name \
@@ -22,17 +21,17 @@ class IngredientRepository:
             return False
         return True
 
-    def get_all_ingredients_with_categories(self, category_id):
-        try:
-            sql = "SELECT IngredientCategory.category_name, Ingredient.ingredient_name \
-                    FROM Ingredient, IngredientCategory \
-                    WHERE Ingredient.category_id = IngredientCategory.id \
-                        AND Ingredient.category_id=:category_id"
-            self._db.session.execute(sql, category_id).fetchall()
-            print("onnistui")
-        except:
-            print("ei onnistunut")
-            return False
+    def get_all_ingredients(self):
+        sql = "SELECT id, ingredient_name, category_id FROM Ingredients"
+        query_result = self._db.session.execute(sql).fetchall()
+        return query_result
+
+    def get_all_ingredients_with_categories(self):
+        sql = "SELECT Ingredients.ingredient_name, IngredientCategory.category_name \
+                    FROM Ingredients LEFT JOIN IngredientCategory ON \
+                    Ingredients.category_id = IngredientCategory.id"
+        return self._db.session.execute(sql).fetchall()
+        
 
 
 ingredient_repository = IngredientRepository()
