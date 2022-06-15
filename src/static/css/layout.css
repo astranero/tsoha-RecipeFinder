@@ -1,6 +1,5 @@
 html,
 body {
-  height: 100%;
   font-family: Poppins-Regular,sans-serif;
 }
 
@@ -89,6 +88,16 @@ body {
     left: 80%;
 }
 
+.recipe-name-positioning {
+    width: 30%;
+}
+
+
+.recipe-ingredient-positioning {
+    width: 30%;
+}
+
+
 /* TEXT EDITING  */
 
 .navbar-title-layout {
@@ -134,6 +143,8 @@ body {
 .left-padding {
     padding-left: 0.3cm;
 }
+
+
 
 /* PICTURES  */
 

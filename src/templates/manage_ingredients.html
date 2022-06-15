@@ -10,11 +10,7 @@
             <table class="table table-striped">
                 <thead>
                   <div class="text-padding">
-                    <form id="delete_ingredient" action="/manage-ingredients/delete-ingredient" method="POST">
-                      <button type="submit" class="btn btn-outline-secondary">Delete chosen ingredient</button>
-                    </form>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-modify-ingredient">Modify chosen ingredient</button>
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-new-ingredient">Add ingredient</button>
                       <form action="/manage-ingredients/add-ingredient" method="POST">
                           <div class="modal" id="myModal-new-ingredient">
                               <div class="modal-dialog">
@@ -64,23 +60,27 @@
                     <th scope="col">Select</th>
                     <th scope="col">Ingredient Name</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Usage (used in recipes)</th>
                   </tr>
                 </thead>
+                <form action="/manage-ingredients/delete-ingredient" method="POST">
                 <tbody>
                   {% for ingredient in ingredients %}
                   <tr>
                     <th scope="row">
-                        <input type="radio" name="radios" id="radio1" />
-                        <label for="radio1"></label>
+                      <div class="radio">
+                        <input type="radio" id="ingredient_id" name="ingredient_id" value="{{ingredient[0]}}"></input>
+                      </div>
                       </th>
                     </th>
                     <td>{{ingredient.ingredient_name}}</td>
                     <td>{{ingredient.category_name}}</td>
-                    <td>moi</td>
                     {% endfor %}
                   </tr>
                 </tbody>
+                <div class="text-padding">
+                  <button type="submit" class="btn btn-outline-secondary">Delete chosen ingredient</button>
+                </div>
+              </form>
               </table>
         </div>
     </div>

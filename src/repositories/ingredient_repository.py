@@ -27,9 +27,14 @@ class IngredientRepository:
         return query_result
 
     def get_all_ingredients_with_categories(self):
-        sql = "SELECT Ingredients.ingredient_name, IngredientCategory.category_name \
+        sql = "SELECT Ingredients.id, Ingredients.ingredient_name, IngredientCategory.category_name \
                     FROM Ingredients LEFT JOIN IngredientCategory ON \
                     Ingredients.category_id = IngredientCategory.id"
         return self._db.session.execute(sql).fetchall()
+
+    def delete_ingredient(self, id):
+        sql = "DELETE FROM Ingredients WHERE id=:id"
+        self._db.session.execute(sql, {"id":id})
+        self._db.session.commit()
 
 ingredient_repository = IngredientRepository()

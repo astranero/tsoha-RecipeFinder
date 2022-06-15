@@ -7,16 +7,13 @@ class IngredientCategoryRepository:
         self._db = db
 
     def create_ingredient_category(self, category_name):
-        try:
-            sql = "INSERT INTO IngredientCategory (category_name) \
+       
+        sql = "INSERT INTO IngredientCategory (category_name) \
                         VALUES (:category_name)"
-            self._db.session.execute(sql, {"category_name":category_name})
-            self._db.session.commit()
-            print("onnistui")
-        except:
-            print("ei onnistunut")
-            return False
-
+        self._db.session.execute(sql, {"category_name":category_name})
+        self._db.session.commit()
+        print("onnistui")
+       
     def check_if_category_exists(self, category_name):
         sql = "SELECT category_name \
                 FROM IngredientCategory \
@@ -32,18 +29,15 @@ class IngredientCategoryRepository:
         return query_result
 
     def get_all_ingredients_in_category(self, category_id):
-        sql = "SELECT Ingredients.ingredient_name \
+        sql = "SELECT Ingredients.category_id, IngredientCategory.category_name, Ingredients.ingredient_name \
                     FROM Ingredients LEFT JOIN IngredientCategory ON \
                     Ingredients.category_id = IngredientCategory.id \
                     WHERE Ingredients.category_id =:category_id"
         return self._db.session.execute(sql, {"category_id":category_id}).fetchall()
 
     def delete_category(self, id):
-        try:
-            sql = "DELETE FROM IngredientCategory WHERE id:=id"
-            self._db.session.execute(sql, {"id":id})
-            self._db.session.commit()
-        except:
-            return False
-
+        sql = "DELETE FROM IngredientCategory WHERE id=:id"
+        self._db.session.execute(sql, {"id":id})
+        self._db.session.commit()
+       
 ingredient_category_repository = IngredientCategoryRepository()

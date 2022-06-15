@@ -5,8 +5,8 @@ class RecipeIngredientsService:
     def __init__(self, repository=default_recipe_ingredients_repository):
         self._repository = repository
 
-    def add_ingredient_to_recipe(self):
-        pass
+    def add_ingredient_to_recipe(self, recipe_id, ingredient_id):
+        return self._repository.add_ingredient_to_recipe(recipe_id, ingredient_id)
 
     def check_if_ingredient_added_to_recipe(self):
         pass
@@ -17,4 +17,4 @@ class RecipeIngredientsService:
     def get_all_ingredients_with_recipe_id(self):
         pass
 
-recipe_ingredientsService = RecipeIngredientsService()
+recipe_ingredients_service = RecipeIngredientsService()
