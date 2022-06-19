@@ -8,34 +8,137 @@
         <div class="wrap-basic font">
             <div class="page-title-layout">Manage Recipes</div>
             <div class="text-padding">
-            <a href="/manage-recipes/add-recipe"type="button" class="btn btn-outline-secondary" name="add_recipe" id="add_recipe">Add recipe</a>
+              <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-new-recipe">Add recipe</button>
             </div>
+            <form action="/manage-recipes" method="POST">
+              <div class="modal" id="myModal-new-recipe">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Add Recipe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label required">Recipe name</label>
+                            <input type="text" class="form-control" id="recipe_name", name="recipe_name">
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                              <label class="form-label required">Cook time</label>
+                              <input type="text" class="form-control" id="cook_time", name="cook_time">
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label class="form-label required">Recipe description</label>
+                          <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label class="form-label">Add Ingredients (e.g. 2dl milk)</label>
+                          <div class="ingredient_input" id="ingredient_input" name="ingredient_all">
+                              <input type="text" name="ingredient" id="ingredient" placeholder="Add ingredient">
+                          </div>
+                          <div class="top-padding">
+                          <button type="button" class="controls btn btn-outline-secondary">
+                              <a href="#" id="add_more_fields">
+                                  <i class="fa fa-plus">
+                                  </i>Add More
+                              </a>
+                          </button>
+                          <button type="button" class="controls btn btn-outline-secondary">
+                              <a href="#" id="remove_fields">
+                                  <i class="fa fa-plus">
+                                  </i>Remove ingredient
+                              </a>
+                          </button>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label required">Add instructions for recipe</label>
+                            <textarea class="form-control" id="instructions" name="instructions"></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                      <button class="btn btn-secondary" type="submit">Create recipe</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            
             <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">Select</th>
                     <th scope="col">Recipe Name</th>
+                    <th scope="col">Cook time</th>
                     <th scope="col">Recipe Description</th>
                     <th scope="col">Recipe Ingredients</th>
                     <th scope="col">Recipe Instructions</th>
                   </tr>
                 </thead>
+
+                <form action="manage-recipes/delete-recipe" method="POST">
                 <tbody>
+                  {% for item in recipe_all %}
                   <tr>
                     <th scope="row">
-                        <input type="radio" name="radios" id="radio1" />
-                        <label for="radio1"></label>
-                      </th>
+                      <input type="radio" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
                     </th>
-                    <td>recipe name</td>
-                    <td>description</td>
-                    <td>ingredients</td>
-                    <td>instructions</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[5]}}</td>
+                    <td>{{item[4]}}</td>
                   </tr>
+                  {% endfor %}
                 </tbody>
+                <button type="submit" class="btn btn-outline-secondary">Delete Chosen Recipe</button>
+              </form>
               </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script>
+      src="/src/static/js/add-remove-ingredients.js"
+
+      function getSelectValue()
+      {
+          var selectedValue = document.getElementById("list").value;
+          console.log(selectedValue);
+      }
+      getSelectValue();
+
+  </script>
+  <script>
+      var ingredient_input = document.getElementById('ingredient_input');
+      var add_more_fields = document.getElementById('add_more_fields');
+      var remove_fields = document.getElementById('remove_fields');
+
+      add_more_fields.onclick = function(){
+
+      var newRow = document.createElement('div');
+      ingredient_input.appendChild(newRow);
+
+      var newIngredient = document.createElement('input');
+      newIngredient.setAttribute('type','text');
+      newIngredient.setAttribute('class','survey_ingredient');
+      newIngredient.setAttribute('name','ingredient');
+      newIngredient.setAttribute('id','ingredient');
+      newIngredient.setAttribute('placeholder','Add ingredient');
+      ingredient_input.appendChild(newIngredient);
+      }
+
+      remove_fields.onclick = function(){
+          const element = document.getElementById("ingredient_input");
+          element.removeChild(element.lastChild);
+      }
+  </script>
 </body>
 {% endblock %}

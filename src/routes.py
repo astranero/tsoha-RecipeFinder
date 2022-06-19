@@ -1,10 +1,8 @@
 from app import app
 from flask import render_template, request, redirect, url_for
 from services.user_service import user_service
-from services.ingredient_category_service import ingredient_category_service
-from services.ingredient_service import ingredient_service
 from services.recipe_service import recipe_service
-from services.recipe_ingredients_service import recipe_ingredients_service
+
 import sys
 
 @app.route("/", methods=["GET", "POST"])
@@ -32,9 +30,7 @@ def signup():
 
 @app.route("/homepage", methods=["GET","POST"])
 def homepage():
-    fruits_and_vegetables = ingredient_category_service.get_all_ingredients_in_category(1)
-    if request.method == "GET":
-        return render_template("homepage.html", fruits_and_vegetables=fruits_and_vegetables)
+   return render_template("homepage.html")
 
 @app.route("/profile/<int:id>", methods=["GET","POST"])
 def profile(id):
@@ -74,55 +70,24 @@ def logout():
 
 @app.route("/manage-recipes", methods=["GET","POST"])
 def manage_recipes():
+    if request.method == "GET":
+        recipe_all = recipe_service.get_recipe()
+        return render_template("manage_recipes.html", recipe_all=recipe_all)
     if request.method == "POST":
-        redirect("/manage-recipes/add-recipe")
+        recipe_name = request.form["recipe_name"]
+        recipe_service.create_recipe_name_and_id(recipe_name)
+        recipe_id = recipe_service.get_recipe_id(recipe_name)
+        cook_time = request.form["cook_time"]
+        description = request.form["description"]
+        instructions = request.form["instructions"]
+        recipe_service.add_details_to_recipe(description, cook_time, instructions, recipe_id)
+        ingredient = request.form["ingredient"]
+        recipe_service.add_ingredient_to_recipe(ingredient, recipe_id)
+        return redirect("/manage-recipes")
     return render_template("manage_recipes.html")
 
-@app.route("/manage-recipes/add-recipe", methods=["GET","POST"])
-def add_recipe():
-    if request.method == "GET":
-        ingredients = ingredient_service.get_all_ingredients_with_categories()
-        return render_template("add_recipe.html", ingredients=ingredients)
-
-@app.route("/manage-ingredients", methods=["GET","POST"])
-def manage_ingredients():
-    ingredient_categories = ingredient_category_service.get_all_categories()
-    ingredients = ingredient_service.get_all_ingredients_with_categories()
-    if request.method == "GET":
-        return render_template("manage_ingredients.html", ingredient_categories=ingredient_categories, ingredients=ingredients)
-
-@app.route("/manage-ingredients/add-ingredient", methods=["GET","POST"])
-def add_ingredient():
-    new_ingredient = request.form["new_ingredient"]
-    category_id = int(request.form["category_id"])
-    ingredient_service.create_ingredient(new_ingredient, category_id)
-    return redirect("/manage-ingredients")
-
-@app.route("/manage-ingredients/delete-ingredient", methods=["GET", "POST"])
-def delete_ingredient():
-    delete_ingredient = request.form["ingredient_id"]
-    ingredient_service.delete_ingredient(delete_ingredient)
-    return redirect("/manage-ingredients")
-
-@app.route("/manage-ingredient-categories", methods=["GET","POST"])
-def manage_ingredient_categories():
-    ingredient_categories = ingredient_category_service.get_all_categories()
-    if request.method == "GET":
-        return render_template("manage_ingredient_categories.html", ingredient_categories=ingredient_categories)
-
-@app.route("/manage-ingredient-categories/add-category", methods=["GET", "POST"])
-def add_category():
-    new_category = request.form["new_category"]
-    ingredient_category_service.create_category(new_category)
-    return redirect("/manage-ingredient-categories")
-
-@app.route("/manage-ingredient-categories/delete-category", methods=["GET", "POST"])
-def delete_category():
-    delete_category = request.form["category_id"]
-    ingredient_category_service.delete_category(delete_category)
-    return redirect("/manage-ingredient-categories")
-
-
-@app.route("/basket", methods=["GET","POST"])
-def basket():
-    return render_template("basket.html")
+@app.route("/manage-recipes/delete-recipe", methods=["GET","POST"])
+def delete_recipe():
+    delete_recipe = request.form["recipe_id"]
+    recipe_service.delete_recipe(delete_recipe)
+    return redirect("/manage-recipes")

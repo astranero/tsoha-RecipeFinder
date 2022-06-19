@@ -1,9 +1,8 @@
 DROP TABLE IF EXISTS Users CASCADE;
-DROP TABLE IF EXISTS IngredientCategory CASCADE;
-DROP TABLE IF EXISTS Ingredients CASCADE;
 DROP TABLE IF EXISTS Recipes CASCADE;
 DROP TABLE IF EXISTS Favorites CASCADE;
-DROP TABLE IF EXISTS RecipeIngredients CASCADE;
+DROP TABLE IF EXISTS Ingredients CASCADE;
+DROP TABLE IF EXISTS RecipeDetails CASCADE;
 
 CREATE TABLE IF NOT EXISTS Users (
     id SERIAL PRIMARY KEY,
@@ -14,39 +13,27 @@ CREATE TABLE IF NOT EXISTS Users (
     email TEXT
 );
 
-CREATE TABLE IF NOT EXISTS IngredientCategory (
+CREATE TABLE IF NOT EXISTS Recipes (
     id SERIAL PRIMARY KEY,
-    category_name TEXT UNIQUE
+    recipe_name TEXT UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS RecipeDetails (
+    id SERIAL PRIMARY KEY,
+    description TEXT,
+    cook_time TEXT,
+    instructions TEXT,
+    recipe_id INTEGER REFERENCES Recipes(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Ingredients (
     id SERIAL PRIMARY KEY,
-    ingredient_name TEXT UNIQUE,
-    category_id INTEGER REFERENCES IngredientCategory (id)
-);
-
-CREATE TABLE IF NOT EXISTS Recipes (
-    id SERIAL PRIMARY KEY,
-    recipe_name TEXT UNIQUE,
-    decription TEXT,
-    cook_time TEXT,
-    instructions TEXT
-);
-
-CREATE TABLE IF NOT EXISTS RecipeIngredients (
-    recipe_id INTEGER REFERENCES Recipes,
-    ingredient_id INTEGER REFERENCES Ingredients (id),
-    UNIQUE(recipe_id, ingredient_id)
+    ingredient_name TEXT,
+    recipe_id INTEGER REFERENCES Recipes (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Favorites (
     user_id INTEGER REFERENCES Users (id),
     recipe_id INTEGER REFERENCES Recipes (id),
     UNIQUE(user_id, recipe_id)
-);
-
-CREATE TABLE IF NOT EXISTS Basket (
-    user_id INTEGER REFERENCES Users (id),
-    ingredient_id INTEGER REFERENCES Ingredients (id),
-    UNIQUE(user_id, ingredient_id)
 );
