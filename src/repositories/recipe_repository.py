@@ -49,12 +49,14 @@ class RecipeRepository:
         self._db.session.commit()
 
     def get_recipe(self):
-        return self._db.session.execute("SELECT Recipes.id, Recipes.recipe_name, RecipeDetails.cook_time, RecipeDetails.description, RecipeDetails.instructions, Ingredients.ingredient_name \
-                                        FROM Recipes \
-                                        LEFT JOIN RecipeDetails ON \
-                                        Recipes.id = RecipeDetails.recipe_id \
-                                        LEFT JOIN Ingredients ON \
-                                        Recipes.id = Ingredients.recipe_id").fetchall()
+        sql = "SELECT Recipes.id, Recipes.recipe_name, RecipeDetails.cook_time, \
+                        RecipeDetails.description, RecipeDetails.instructions, Ingredients.ingredient_name \
+                                FROM Recipes \
+                                LEFT JOIN RecipeDetails ON \
+                                Recipes.id = RecipeDetails.recipe_id \
+                                LEFT JOIN Ingredients ON \
+                                Recipes.id = Ingredients.recipe_id"
+        return self._db.session.execute(sql).fetchall()
 
     def get_recipe_with_id(self, recipe_id):
         sql = "SELECT Recipes.id, Recipes.recipe_name, RecipeDetails.cook_time, \
