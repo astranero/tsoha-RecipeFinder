@@ -1,4 +1,3 @@
-from jinja2 import pass_eval_context
 from werkzeug.security import check_password_hash
 from flask import session, abort, request
 import secrets
@@ -58,6 +57,7 @@ class UserService:
         return self._user_repository.get_current_user(id)
 
     def get_current_username(self, id):
+        print(id)
         return self._user_repository.get_current_user(id).username
 
     def get_current_email(self, id):
@@ -87,6 +87,6 @@ class UserService:
             abort(403)
 
     def get_user_id(self):
-        return session.get("user_id", -1)
+        return session.get("user_id", 0)
 
 user_service = UserService()

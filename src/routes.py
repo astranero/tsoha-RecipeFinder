@@ -33,36 +33,37 @@ def homepage():
     return render_template("homepage.html", recipe_all=recipe_all)
 
 
-@app.route("/profile/<int:id>", methods=["GET","POST"])
-def profile(id):
-    username = user_service.get_current_username(id)
-    email = user_service.get_current_email(id)
-    phone_number = user_service.get_current_phone_number(id)
-    role = user_service.get_current_role(id)
+@app.route("/profile/<int:user_id>", methods=["GET","POST"])
+def profile(user_id):
+    username = user_service.get_current_username(user_id)
+    email = user_service.get_current_email(user_id)
+    phone_number = user_service.get_current_phone_number(user_id)
+    role = user_service.get_current_role(user_id)
     if request.method == "GET":
-        return render_template("profile.html", username=username, email=email, role=role, phone_number=phone_number, id=id)
+        return render_template("profile.html", username=username, email=email, role=role, phone_number=phone_number, user_id=user_id)
 
-@app.route("/profile/<int:id>/modify-username", methods=["GET", "POST"])
-def modify_username(id):
+@app.route("/profile/<int:user_id>/modify-username", methods=["GET", "POST"])
+def modify_username(user_id):
     new_username = request.form["new_username"]
-    user_service.modify_username(new_username, id)
-    return redirect('/profile/'+str(id))
+    user_service.modify_username(new_username, user_id)
+    return redirect('/profile/'+str(user_id))
 
-@app.route("/profile/<int:id>/modify-phone-number", methods=["GET", "POST"])
-def modify_phone_number(id):
+@app.route("/profile/<int:user_id>/modify-phone-number", methods=["GET", "POST"])
+def modify_phone_number(user_id):
     new_phone_number = request.form["new_phone_number"]
-    user_service.modify_phone_number(new_phone_number, id)
-    return redirect('/profile/'+str(id))
+    user_service.modify_phone_number(new_phone_number, user_id)
+    return redirect('/profile/'+str(user_id))
 
-@app.route("/profile/<int:id>/modify-email", methods=["GET", "POST"])
-def modify_email(id):
+@app.route("/profile/<int:user_id>/modify-email", methods=["GET", "POST"])
+def modify_email(user_id):
     new_email = request.form["new_email"]
-    user_service.modify_email(new_email, id)
-    return redirect('/profile/'+str(id))
+    user_service.modify_email(new_email, user_id)
+    return redirect('/profile/'+str(user_id))
 
 @app.route("/favorites", methods=["GET","POST"])
 def favorites():
     favorites = favorite_service.get_user_favorites(user_service.get_user_id())
+    print(favorites, "favs")
     return render_template("favorites.html", favorites=favorites)
 
 @app.route("/logout", methods=["GET","POST"])
@@ -94,16 +95,18 @@ def delete_recipe():
     recipe_service.delete_recipe(delete_recipe)
     return redirect("/manage-recipes")
 
-@app.route("/recipe/<int:id>", methods=["GET","POST"])
-def recipe(id):
-    recipe = recipe_service.get_recipe_with_id(str(id))
+@app.route("/recipe/<int:recipe_id>", methods=["GET","POST"])
+def recipe(recipe_id):
+    recipe = recipe_service.get_recipe_with_id(str(recipe_id))
     if request.method == "GET":
-        return render_template("recipe.html", recipe=recipe, id=id)
+        return render_template("recipe.html", recipe=recipe, recipe_id=recipe_id)
     if request.method == "POST":
         favorite = request.form["favorite"]
         if favorite:
-            favorite_service.add_to_favorites(id, user_service.get_user_id())
-        return render_template("recipe.html", recipe=recipe, id=id)
+            user_id = user_service.get_user_id()
+            print(user_id, "user_id")
+            favorite_service.add_to_favorites(user_id, recipe_id)
+        return render_template("recipe.html", recipe=recipe, recipe_id=recipe_id)
 
 
 

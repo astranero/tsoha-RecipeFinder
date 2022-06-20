@@ -6,12 +6,14 @@ class FavoritesRepository:
 
     def add_to_favorites(self, user_id, recipe_id):
         try:
+            print(user_id, recipe_id)
             sql = "INSERT INTO Favorites (user_id, recipe_id) \
-                    VALUES (:user_id, :recipe_id)"
+                        VALUES (:user_id, :recipe_id)"
             self._db.session.execute(sql, {"user_id": user_id, "recipe_id": recipe_id})
             self._db.session.commit()
         except:
             return False
+
 
     def remove_from_favorites(self, user_id, recipe_id):
         try:
@@ -19,6 +21,7 @@ class FavoritesRepository:
                     WHERE user_id=:user_id \
                         AND recipe_id=:recipe_id"
             self._db.session.execute(sql, {"user_id": user_id, "recipe_id": recipe_id})
+            self._db.session.commit()
         except:
             return False
 
@@ -31,7 +34,7 @@ class FavoritesRepository:
                         LEFT JOIN Favorites ON \
                         Recipes.id = Favorites.recipe_id \
                         WHERE Favorites.user_id=:user_id"
-        return self._db.session.execute(sql, {"user_id":user_id})
+        return self._db.session.execute(sql, {"user_id":user_id}).fetchall()
 
     def check_if_favorite(self, user_id, recipe_id):
         return bool(self._db.session.execute("SELECT user_id, recipe_id \

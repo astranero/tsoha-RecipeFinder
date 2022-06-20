@@ -7,9 +7,7 @@ class FavoriteService:
         self._repository = repository
 
     def add_to_favorites(self, user_id, recipe_id):
-        if not self.check_if_favorite(user_id, recipe_id):
-            self._repository.add_to_favorites(user_id, recipe_id)
-        return None
+        return self._repository.add_to_favorites(user_id, recipe_id)
 
     def get_user_favorites(self, user_id):
         return self._repository.get_user_favorites(user_id)
