@@ -8,7 +8,7 @@ class FavoritesRepository:
         try:
             sql = "INSERT INTO Favorites (user_id, recipe_id) \
                     VALUES (:user_id, :recipe_id)"
-            self._db.session.execute(sql, (user_id, recipe_id))
+            self._db.session.execute(sql, {"user_id": user_id, "recipe_id": recipe_id})
             self._db.session.commit()
         except:
             return False
@@ -18,27 +18,25 @@ class FavoritesRepository:
             sql = "DELETE FROM Favorites \
                     WHERE user_id=:user_id \
                         AND recipe_id=:recipe_id"
-            self._db.session.execute(sql, (user_id, recipe_id))
+            self._db.session.execute(sql, {"user_id": user_id, "recipe_id": recipe_id})
         except:
             return False
 
-    def get_all_favorites_with_user_id(self, user_id):
-        try:
-            user_favorite_sql = "SELECT * \
-                                FROM Favorites \
-                                WHERE user_id=:user_id"
-            query_result = self._db.session.execute(user_favorite_sql, user_id).fetchall()
+    def get_user_favorites(self, user_id):
+        sql = "SELECT Recipes.id, Recipes.recipe_name, \
+                    RecipeDetails.cook_time, RecipeDetails.description \
+                        FROM Recipes \
+                        LEFT JOIN RecipeDetails ON \
+                        Recipes.id = RecipeDetails.recipe_id \
+                        LEFT JOIN Favorites ON \
+                        Recipes.id = Favorites.recipe_id \
+                        WHERE Favorites.user_id=:user_id"
+        return self._db.session.execute(sql, {"user_id":user_id})
 
-            favorites = []
-            for pair in query_result:
-                user_id, recipe_id = pair
-                recipe_sql = "SELECT recipe_name \
-                                FROM Recipes \
-                                WHERE recipe_id=:recipe_id"
-                recipe = self._db.session.execute(recipe_sql, recipe_id)
-                favorites.append(recipe).fetchone()
-            return favorites
-        except:
-            return False
+    def check_if_favorite(self, user_id, recipe_id):
+        return bool(self._db.session.execute("SELECT user_id, recipe_id \
+                                    FROM Favorites \
+                                    WHERE user_id=:user_id AND recipe_id=:recipe_id",
+                                    {"user_id": user_id, "recipe_id": recipe_id}).fetchall())
 
 favorites_repository = FavoritesRepository()

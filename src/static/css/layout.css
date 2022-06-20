@@ -30,9 +30,7 @@ body {
     height: 100%;
     background-color: #fff;
     overflow: hidden;
-    display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
     flex-direction: row-reverse;
     box-sizing: border-box;
     position: absolute;

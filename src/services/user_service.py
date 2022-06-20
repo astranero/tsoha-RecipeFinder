@@ -58,7 +58,6 @@ class UserService:
         return self._user_repository.get_current_user(id)
 
     def get_current_username(self, id):
-        print(id)
         return self._user_repository.get_current_user(id).username
 
     def get_current_email(self, id):
@@ -86,5 +85,8 @@ class UserService:
     def require_role(self, role):
         if role > session.get("role", 0):
             abort(403)
+
+    def get_user_id(self):
+        return session.get("user_id", -1)
 
 user_service = UserService()

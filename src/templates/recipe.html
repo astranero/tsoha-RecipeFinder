@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<body>
+    <div class="limiter">
+        <div class="wrap-basic font">
+            
+            {% for item in recipe %}
+            <h2>{{item[1]}}</h2>
+            <div>Cook time: {{item[2]}}</div>
+            <div>Ingredients:</div>
+            <div>{{item[5]}}</div>
+            <div>Instructions.</div>
+            <div>{{item[6]}}</div>
+
+            {% endfor %}
+            <form action="/recipe/{{id}}" method="POST">
+            <button type="submit" class="btn btn-secondary" id="favorite" name="favorite">Add to Favorites!</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+{% endblock %}

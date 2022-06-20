@@ -15,6 +15,12 @@ class RecipeRepository:
         except:
             return False
 
+    def check_if_recipe_name_exist(self, recipe_name):
+        return bool(self._db.session.execute("SELECT recipe_name \
+                                    FROM Recipes \
+                                    WHERE recipe_name=:recipe_name",
+                                    {"recipe_name":recipe_name}).fetchall())
+
     def get_recipe_id(self, recipe_name):
         try:
             return self._db.session.execute("SELECT id FROM Recipes \
@@ -43,13 +49,23 @@ class RecipeRepository:
         self._db.session.commit()
 
     def get_recipe(self):
-        sql = self._db.session.execute("SELECT Recipes.id, Recipes.recipe_name, RecipeDetails.cook_time, RecipeDetails.description, RecipeDetails.instructions, Ingredients.ingredient_name \
+        return self._db.session.execute("SELECT Recipes.id, Recipes.recipe_name, RecipeDetails.cook_time, RecipeDetails.description, RecipeDetails.instructions, Ingredients.ingredient_name \
                                         FROM Recipes \
                                         LEFT JOIN RecipeDetails ON \
                                         Recipes.id = RecipeDetails.recipe_id \
                                         LEFT JOIN Ingredients ON \
                                         Recipes.id = Ingredients.recipe_id").fetchall()
-        return sql
+
+    def get_recipe_with_id(self, recipe_id):
+        sql = "SELECT Recipes.id, Recipes.recipe_name, RecipeDetails.cook_time, \
+                    RecipeDetails.description, RecipeDetails.instructions, Ingredients.ingredient_name \
+                                        FROM Recipes \
+                                        LEFT JOIN RecipeDetails ON \
+                                        Recipes.id = RecipeDetails.recipe_id \
+                                        LEFT JOIN Ingredients ON \
+                                        Recipes.id = Ingredients.recipe_id \
+                                        WHERE Recipes.id=:recipe_id"
+        return self._db.session.execute(sql, {"recipe_id":recipe_id}).fetchall()
 
     def delete_recipe(self, id):
         sql = "DELETE FROM Recipes WHERE id=:id"

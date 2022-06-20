@@ -8,17 +8,23 @@ class RecipeService:
     def create_recipe_name_and_id(self, recipe_name):
         return self._repository.create_recipe_name_and_id(recipe_name)
 
+    def check_if_recipe_name_exist(self, recipe_name):
+        self._repository.check_if_recipe_name_exist(recipe_name)
+
     def add_details_to_recipe(self, description, cook_time, instructions, recipe_id ):
         return self._repository.add_details_to_recipe(description, cook_time, instructions, recipe_id)
 
     def add_ingredient_to_recipe(self, ingredient_id, recipe_id, ):
         return self._repository.add_ingredient_to_recipe(ingredient_id, recipe_id)
-    
+
     def get_recipe_id(self, recipe_name):
         return self._repository.get_recipe_id(recipe_name)
 
     def get_recipe(self):
         return self._repository.get_recipe()
+
+    def get_recipe_with_id(self, recipe_id):
+        return self._repository.get_recipe_with_id(recipe_id)
 
     def delete_recipe(self, id):
         return self._repository.delete_recipe(id)

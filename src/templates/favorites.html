@@ -2,6 +2,13 @@
 
 {% block content %}
 <body>
+    <div class="limiter">
+        <div class="wrap-basic font">
+            {% for item in favorites %}
+            <div>{{item}}</div>
+            {% endfor %}
+        </div>
+    </div>
 
 </body>
 {% endblock %}

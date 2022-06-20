@@ -2,8 +2,7 @@ from app import app
 from flask import render_template, request, redirect, url_for
 from services.user_service import user_service
 from services.recipe_service import recipe_service
-
-import sys
+from services.favorites_service import favorite_service
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -30,7 +29,9 @@ def signup():
 
 @app.route("/homepage", methods=["GET","POST"])
 def homepage():
-   return render_template("homepage.html")
+    recipe_all = recipe_service.get_recipe()
+    return render_template("homepage.html", recipe_all=recipe_all)
+
 
 @app.route("/profile/<int:id>", methods=["GET","POST"])
 def profile(id):
@@ -61,7 +62,8 @@ def modify_email(id):
 
 @app.route("/favorites", methods=["GET","POST"])
 def favorites():
-    return render_template("favorites.html")
+    favorites = favorite_service.get_user_favorites(user_service.get_user_id())
+    return render_template("favorites.html", favorites=favorites)
 
 @app.route("/logout", methods=["GET","POST"])
 def logout():
@@ -91,3 +93,17 @@ def delete_recipe():
     delete_recipe = request.form["recipe_id"]
     recipe_service.delete_recipe(delete_recipe)
     return redirect("/manage-recipes")
+
+@app.route("/recipe/<int:id>", methods=["GET","POST"])
+def recipe(id):
+    recipe = recipe_service.get_recipe_with_id(str(id))
+    if request.method == "GET":
+        return render_template("recipe.html", recipe=recipe, id=id)
+    if request.method == "POST":
+        favorite = request.form["favorite"]
+        if favorite:
+            favorite_service.add_to_favorites(id, user_service.get_user_id())
+        return render_template("recipe.html", recipe=recipe, id=id)
+
+
+
