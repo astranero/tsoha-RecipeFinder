@@ -16,8 +16,6 @@ class UserService:
                     role=role,
                     phone_number=phone_number,
                     email=email)
-
-        self.validate_registration(username, email, phone_number)
         self._user_repository.register_user(user)
         self.login_user(username, password)
 

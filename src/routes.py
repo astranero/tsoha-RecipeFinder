@@ -84,8 +84,10 @@ def manage_recipes():
         description = request.form["description"]
         instructions = request.form["instructions"]
         recipe_service.add_details_to_recipe(description, cook_time, instructions, recipe_id)
-        ingredient = request.form["ingredient"]
-        recipe_service.add_ingredient_to_recipe(ingredient, recipe_id)
+        ingredients = request.form.getlist("ingredient")
+        for item in ingredients:
+            print(item)
+            recipe_service.add_ingredient_to_recipe(item, recipe_id)
         return redirect("/manage-recipes")
     return render_template("manage_recipes.html")
 
