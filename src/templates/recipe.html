@@ -7,8 +7,14 @@
             {% for item in recipe %}
             <h2>{{item[1]}}</h2>
             <div>Cook time: {{item[2]}}</div>
+            {% endfor %}
+
             <div>Ingredients:</div>
-            <div>{{item[5]}}</div>
+            {% for item in ingredients %}
+            <div>{{item[0]}}</div>
+            {% endfor %}
+
+            {% for item in recipe %}
             <div>Instructions.</div>
             <div>{{item[6]}}</div>
             {% endfor %}

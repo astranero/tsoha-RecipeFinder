@@ -26,10 +26,8 @@ class FavoritesRepository:
 
     def get_user_favorites(self, user_id):
         sql = "SELECT Recipes.id, Recipes.recipe_name, \
-                    RecipeDetails.cook_time, RecipeDetails.description \
+                    Recipes.cook_time, Recipes.description \
                         FROM Recipes \
-                        LEFT JOIN RecipeDetails ON \
-                        Recipes.id = RecipeDetails.recipe_id \
                         LEFT JOIN Favorites ON \
                         Recipes.id = Favorites.recipe_id \
                         WHERE Favorites.user_id=:user_id"

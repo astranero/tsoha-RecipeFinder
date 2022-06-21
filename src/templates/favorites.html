@@ -4,13 +4,18 @@
 <body>
     <div class="limiter">
         <div class="wrap-basic font">
+            <div class="page-title-layout"> Your Favorite Recipes</b></div>
+            {% if no_recipes == True %}
+            <div class="text-layout">You don't have any favorite recipes yet!</div>
+            {% else %}
             <form action="/favorites/remove-favorite" method="POST">
-            {% for item in favorites %}
-            <div>{{item}}</div>
-            <input type="hidden" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
-            <button type="submit" class="btn btn-outline-secondary"> Delete from favorites </button>
-            {% endfor %}
-        </form>
+                {% for item in favorites %}
+                <div>{{item}}</div>
+                <input type="hidden" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
+                <button type="submit" class="btn btn-outline-secondary"> Delete from favorites </button>
+                {% endfor %}
+            </form>
+            {% endif %}
         </div>
     </div>
 

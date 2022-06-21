@@ -15,16 +15,11 @@ class UserService:
                     role=role,
                     phone_number=phone_number,
                     email=email)
-        if self.validate_registration(username):
+        if not self._user_repository.check_if_username_exists(username):
             self._user_repository.register_user(user)
             self.login_user(username, password)
             return True
         return False
-
-    def validate_registration(self, username):
-        if self._user_repository.check_if_username_exists(username):
-            return False
-        return True
 
     def login_user(self, username, password):
         user = self._user_repository.login(username)

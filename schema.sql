@@ -15,15 +15,10 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Recipes (
     id SERIAL PRIMARY KEY,
-    recipe_name TEXT UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS RecipeDetails (
-    id SERIAL PRIMARY KEY,
+    recipe_name TEXT UNIQUE,
     description TEXT,
     cook_time TEXT,
-    instructions TEXT,
-    recipe_id INTEGER REFERENCES Recipes(id) ON DELETE CASCADE
+    instructions TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Ingredients (
@@ -36,4 +31,12 @@ CREATE TABLE IF NOT EXISTS Favorites (
     user_id INTEGER REFERENCES Users (id),
     recipe_id INTEGER REFERENCES Recipes (id),
     UNIQUE(user_id, recipe_id)
+);
+
+CREATE TABLE IF NOT EXISTS Comments (
+    id SERIAL PRIMARY KEY,
+    comment TEXT,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    recipe_id INTEGER REFERENCES Recipes (id) ON DELETE CASCADE,
+    sent_at TIMESTAMP
 );

@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, flash, session
 from services.user_service import user_service
 from services.recipe_service import recipe_service
 from services.favorites_service import favorite_service
+from services.comments_service import comments_service
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -72,7 +73,11 @@ def modify_email(user_id):
 def favorites():
     user_id = user_service.get_user_id()
     favorites = favorite_service.get_user_favorites(user_id)
-    return render_template("favorites.html", favorites=favorites)
+    if len(favorites) == 0:
+        no_recipes = True
+    else:
+        no_recipes = False
+    return render_template("favorites.html", favorites=favorites, no_recipes=no_recipes)
 
 @app.route("/favorites/remove-favorite", methods=["GET","POST"])
 def remove_favorite():
@@ -93,15 +98,13 @@ def manage_recipes():
         return render_template("manage_recipes.html", recipe_all=recipe_all)
     if request.method == "POST":
         recipe_name = request.form["recipe_name"]
-        recipe_service.create_recipe_name_and_id(recipe_name)
-        recipe_id = recipe_service.get_recipe_id(recipe_name)
         cook_time = request.form["cook_time"]
         description = request.form["description"]
         instructions = request.form["instructions"]
-        recipe_service.add_details_to_recipe(description, cook_time, instructions, recipe_id)
+        recipe_service.create_recipe(recipe_name, description, cook_time, instructions)
+        recipe_id = recipe_service.get_recipe_id(recipe_name)
         ingredients = request.form.getlist("ingredient")
         for item in ingredients:
-            print(item)
             recipe_service.add_ingredient_to_recipe(item, recipe_id)
         return redirect("/manage-recipes")
     return render_template("manage_recipes.html")
@@ -115,14 +118,15 @@ def delete_recipe():
 @app.route("/recipe/<int:recipe_id>", methods=["GET","POST"])
 def recipe(recipe_id):
     recipe = recipe_service.get_recipe_with_id(str(recipe_id))
+    ingredients = recipe_service.get_recipe_ingredients_with_id(recipe_id)
     user_id = user_service.get_user_id()
     if request.method == "GET":
-        return render_template("recipe.html", recipe=recipe, recipe_id=recipe_id)
+        return render_template("recipe.html", recipe=recipe, recipe_id=recipe_id, ingredients=ingredients)
     if request.method == "POST":
         favorite = request.form["favorite"]
         if favorite:
             favorite_service.add_to_favorites(user_id, recipe_id)
-        return render_template("recipe.html", recipe=recipe, recipe_id=recipe_id)
+        return render_template("recipe.html", recipe=recipe, recipe_id=recipe_id, ingredients=ingredients)
 
 
 
