@@ -10,26 +10,28 @@ class UserService:
         self._user_repository = user_repository
 
     def register_user(self, username, password, role, phone_number, email):
-
         user = User(username=username,
                     password=password,
                     role=role,
                     phone_number=phone_number,
                     email=email)
-        self._user_repository.register_user(user)
-        self.login_user(username, password)
+        if self.validate_registration(username):
+            self._user_repository.register_user(user)
+            self.login_user(username, password)
+            return True
+        return False
 
-    def validate_registration(self, username, email, phone_number):
-        assert not self._user_repository.check_if_username_exists(username), "Username is taken"
-        assert not self._user_repository.check_if_email_exists(email), "Email is taken"
-        assert not self._user_repository.check_if_phone_number_exists(phone_number), "Phone number is taken"
+    def validate_registration(self, username):
+        if self._user_repository.check_if_username_exists(username):
+            return False
+        return True
 
     def login_user(self, username, password):
         user = self._user_repository.login(username)
         if not user:
             return False
         if check_password_hash(user.password, password):
-            session["id"] = user.id
+            session["user_id"] = user.id
             session["username"] = user.username
             session["role"] = user.role
             session["csrf_token"] = secrets.token_hex(16)
@@ -68,7 +70,7 @@ class UserService:
         return self._user_repository.get_current_user(id).role
 
     def logout(self):
-        del session["id"]
+        del session["user_id"]
         del session["username"]
         del session["role"]
         del session['csrf_token']

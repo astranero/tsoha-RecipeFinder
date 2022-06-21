@@ -6,15 +6,21 @@
 <link href="../static/css/signup.css" rel="stylesheet">
 
 </head>
+
 <body>
   <div class="limiter">
       <div class="background-signup">
           <div class="wrap-signup">
               <form class="signup-form validate-form" action="/signup" method="POST">
                 <div class="page-title">Create your RecipeFinder Account</div>
-
-                    <div class="username-input" data-validate="Type Username">
-                        <input class="input" name="username" id="username" type="text" placeholder="Choose your username (minimum 3 characters)" required>
+                    <div class="fill-form">Fill all forms</div>
+                    <div class="error-position">
+                        {% if error %}
+                        <p class=error><strong>Error:</strong> {{ error }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="username-input form-control" data-validate="Type Username">
+                        <input class="input" name="username" id="username" type="text" placeholder="Choose your username (min. 3 characters)" required>
                     </div>
 
                     <div class="role-input">
@@ -23,16 +29,16 @@
                         <div class="form-check">
                             <input class="form-check-input form-check-label" type="radio" name="role" value="1" id="role">Admin</div>
                     </div>
-                    <div class="password-input" data-validate="Type Password">
-                        <input class="input" name="password1" id="password1" type="password" placeholder="Choose your password (minimum 8 characters)" required>
+                    <div class="password-input form-control" data-validate="Type Password">
+                        <input class="input" name="password1" id="password1" type="password" placeholder="Choose your password (min. 8 characters)" required>
                     </div>
-                    <div class="confirm-password-input" data-validate="Type Password Again">
+                    <div class="confirm-password-input form-control" data-validate="Type Password Again">
                         <input class="input" name="password2" id="password2" type="password" placeholder="Retype password" required>
                     </div>
-                    <div class="email-input" data-validate="Type Email">
+                    <div class="email-input form-control" data-validate="Type Email">
                         <input class="input" name="email" id="email" type="text" placeholder="Enter your email address" required>
                     </div>
-                    <div class="phone-input" data-validate="Type Phone number">
+                    <div class="phone-input form-control" data-validate="Type Phone number">
                         <input class="input" name="phone" id="phone" type="text" placeholder="e.g. 0401234567" required>
                     </div>
                     <div class="sign-up-setup">
@@ -42,6 +48,14 @@
                     <div class="back-to-signin-setup">
                         <a href="/" type="submit" class="btn btn-light btn-outline-dark btn-lg btn-block">GO BACK TO SIGN IN</a>
                     </div>
+
+                {% for message in get_flashed_messages() %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  {% endfor %}
+
               <div class="signup-picture" style="background-image: url('/static/images/signup_picture.avif');"></div>
           </div>
       </div>

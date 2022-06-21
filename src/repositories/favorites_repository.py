@@ -6,7 +6,6 @@ class FavoritesRepository:
 
     def add_to_favorites(self, user_id, recipe_id):
         try:
-            print(user_id, recipe_id)
             sql = "INSERT INTO Favorites (user_id, recipe_id) \
                         VALUES (:user_id, :recipe_id)"
             self._db.session.execute(sql, {"user_id": user_id, "recipe_id": recipe_id})

@@ -59,9 +59,24 @@ body {
     display: block;
 }
 
+.fill-form {
+    position: absolute;
+    color: rgb(69, 68, 68);
+    top: 18%;
+    font-family: Poppins-Regular;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.error-position {
+    position: absolute;
+    color: rgb(69, 68, 68);
+    top: 21%;
+    font-family: Poppins-Regular;
+    letter-spacing: 2px;
+}
 .username-input {
-    border: 1px solid #e6e6e6;
-    width: 25%;
+    width: 30%;
     height: 6%;
     position: absolute;
     top: 25%;
@@ -70,43 +85,39 @@ body {
 .role-input {
     position: absolute;
     top: 26%;
-    left: 50%;
+    left: 53%;
     color: rgb(69, 68, 68);
 }
 
 
 .password-input {
-    border: 1px solid #e6e6e6;
-    width: 25%;
+    width: 30%;
     height: 6%;
     position: absolute;
     top: 35%;
 }
 
 .confirm-password-input {
-    border: 1px solid #e6e6e6;
     width: 25%;
     height: 6%;
     position: absolute;
     top: 35%;
-    left: 50%
+    left: 53%
 }
 
 .email-input {
-    border: 1px solid #e6e6e6;
-    width: 25%;
+    width: 30%;
     height: 6%;
     position: absolute;
     top: 45%;
 }
 
 .phone-input {
-    border: 1px solid #e6e6e6;
     width: 25%;
     height: 6%;
     position: absolute;
     top: 45%;
-    left: 50%
+    left: 53%
 }
 
 .input {

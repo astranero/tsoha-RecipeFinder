@@ -10,6 +10,11 @@
     <div class="limiter">
         <div class="background-login">
             <div class="wrap-login">
+              <div class="error-position">
+                {% if error %}
+                <p class=error><strong>Error:</strong> {{ error }}</p>
+                {% endif %}
+                </div>
                 <form class="login-form validate-form" action="/" method="POST">
                     <span class="page-title">Welcome to RecipeFinder</span>
                     <span class="login-form-title">Account Login</span>

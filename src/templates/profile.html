@@ -8,7 +8,7 @@
         <div class="page-title-layout"> Hi <b>{{username}}</b>!</div>
         <div class="text-layout">Do you want to change username?
         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal-username">MODIFY IT HERE!</button>
-        <form action="/profile/{{user_id}}/modify-username" method="POST">
+        <form action="/profile/{{session.user_id}}/modify-username" method="POST">
             <div class="modal" id="myModal-username">
                 <div class="modal-dialog">
                     <div class="modal-content">

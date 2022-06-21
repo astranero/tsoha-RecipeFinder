@@ -4,9 +4,13 @@
 <body>
     <div class="limiter">
         <div class="wrap-basic font">
+            <form action="/favorites/remove-favorite" method="POST">
             {% for item in favorites %}
             <div>{{item}}</div>
+            <input type="hidden" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
+            <button type="submit" class="btn btn-outline-secondary"> Delete from favorites </button>
             {% endfor %}
+        </form>
         </div>
     </div>
 
