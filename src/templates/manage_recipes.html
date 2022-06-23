@@ -74,31 +74,27 @@
             <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">Select</th>
-                    <th scope="col">Recipe id</th>
                     <th scope="col">Recipe Name</th>
                     <th scope="col">Rating</th>
                     <th scope="col">Amount of comments</th>
                     <th scope="col">Amount of likes</th>
+                    <th scope="col">Modify/Delete</th>
                   </tr>
                 </thead>
-                <form action="manage-recipes/delete-recipe" method="POST">
                 <tbody>
                   <tr>
                     {% for item in recipe_all %}
-                    <th scope="row">
-                      <input type="radio" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
-                    </th>
-                    <td>{{item[0]}}</td>
                     <td><a href="/recipe/{{item[0]}}">{{item[1]}}</a></td>
                     <td>amount</td>
                     <td>rating</td>
                     <td>likes</td>
+                    <td>
+                      <a href="/manage-recipes/modify-recipe/{{item[0]}}" class="btn btn-outline-secondary">Modify</a>
+                      <a href="/manage-recipes/delete-recipe/{{item[0]}}" class="btn btn-outline-secondary">Delete</a>
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>
-                <button type="submit" class="btn btn-outline-secondary">Delete Chosen Recipe</button>
-              </form>
               </table>
         </div>
     </div>

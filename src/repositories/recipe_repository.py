@@ -54,8 +54,8 @@ class RecipeRepository:
 
     def get_recipe(self):
         try:
-            sql = "SELECT Recipes.id, Recipes.recipe_name, Recipes.cook_time, \
-                            Recipes.description, Recipes.instructions \
+            sql = "SELECT id, recipe_name, cook_time, \
+                            description, instructions \
                             FROM Recipes"
             return self._db.session.execute(sql).fetchall()
         except:
@@ -64,11 +64,11 @@ class RecipeRepository:
 
     def get_recipe_with_id(self, recipe_id):
         try:
-            sql = "SELECT Recipes.id, Recipes.recipe_name, Recipes.cook_time, \
-                        Recipes.description, Recipes.instructions \
+            sql = "SELECT id, recipe_name, cook_time, \
+                        description, instructions \
                         FROM Recipes \
                         WHERE Recipes.id=:recipe_id"
-            return self._db.session.execute(sql, {"recipe_id":recipe_id}).fetchall()
+            return self._db.session.execute(sql, {"recipe_id":recipe_id}).fetchone()
         except:
             return False
 

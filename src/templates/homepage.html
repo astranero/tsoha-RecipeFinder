@@ -5,6 +5,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <div class="limiter">
         <div class="wrap-filter">
+            <div class="search-box">
+                <form class="form-inline my-lg-0">
+                    <input class="form-control mr-sm-2 col-xs-4" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
         </div>
         <div class="wrap-all-recipes font">
             {% for item in recipe_all %}

@@ -16,11 +16,10 @@ class CommentsRepository:
         except:
             return False
 
-    def delete_comment(self, id):
+    def delete_comment(self, recipe_id):
         sql = "DELETE FROM Comments WHERE id=:id"
-        self._db.session.execute(sql, {"id":id})
+        self._db.session.execute(sql, {"id":recipe_id})
         self._db.session.commit()
-
 
     def get_comments(self, recipe_id):
         sql = "SELECT Comments.comment, Users.username, Comments.sent_at \

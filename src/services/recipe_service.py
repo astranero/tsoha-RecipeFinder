@@ -1,3 +1,4 @@
+from thefuzz import fuzz
 from repositories.recipe_repository import (
     recipe_repository as default_recipe_repository)
 
@@ -24,18 +25,20 @@ class RecipeService:
     def get_recipe_with_id(self, recipe_id):
         return self._repository.get_recipe_with_id(recipe_id)
 
-    def get_recipe_ingredients(self):
-        for item in recipe_ids:
-            ingredients = self._repository.get_recipe_ingredients(item[0])
-        value = []
-        for ingredient in ingredients:
-            value.append(ingredient[0])
-        return ", ".join(value)
-
     def get_recipe_ingredients_with_id(self, recipe_id):
         return self._repository.get_recipe_ingredients(recipe_id)
 
     def delete_recipe(self, id):
         return self._repository.delete_recipe(id)
+
+    def search_by_name(self, query):
+        """Returns reading tips that contain title similar to given query from db.
+        """
+        min_ratio = 80
+        results = []
+        for recipe in self._repository.get_recipe():
+            if fuzz.WRatio(query, recipe.recipe_name) >= min_ratio:
+                results.append(recipe)
+        return results
 
 recipe_service = RecipeService()

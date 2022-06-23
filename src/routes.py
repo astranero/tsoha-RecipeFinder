@@ -39,8 +39,12 @@ def signup():
 @app.route("/homepage", methods=["GET","POST"])
 def homepage():
     recipe_all = recipe_service.get_recipe()
-    return render_template("homepage.html", recipe_all=recipe_all)
+    if request.method == "POST":
+        query = request.form["search"]
+        search = recipe_service.search_by_name(query)
+        return render_template("homepage.html", recipe_all=recipe_all)
 
+    return render_template("homepage.html", recipe_all=recipe_all)
 
 @app.route("/profile/<int:user_id>", methods=["GET","POST"])
 def profile(user_id):
@@ -107,13 +111,20 @@ def manage_recipes():
         for item in ingredients:
             recipe_service.add_ingredient_to_recipe(item, recipe_id)
         return redirect("/manage-recipes")
-    return render_template("manage_recipes.html")
+    return render_template("manage_recipes.html", recipe_all=recipe_all)
 
-@app.route("/manage-recipes/delete-recipe", methods=["GET","POST"])
-def delete_recipe():
-    delete_recipe = request.form["recipe_id"]
-    recipe_service.delete_recipe(delete_recipe)
+
+@app.route("/manage-recipes/delete-recipe/<int:recipe_id>", methods=["GET","POST"])
+def delete_recipe(recipe_id):
+    recipe_service.delete_recipe(recipe_id)
     return redirect("/manage-recipes")
+
+@app.route("/manage-recipes/modify-recipe/<int:recipe_id>", methods=["GET","POST"])
+def modify_recipe(recipe_id):
+    recipe = recipe_service.get_recipe_with_id(str(recipe_id))
+    if request.method == "POST":
+        return redirect("/manage-recipes")
+    return render_template("modify_recipe.html", recipe=recipe)
 
 @app.route("/recipe/<int:recipe_id>", methods=["GET","POST"])
 def recipe(recipe_id):

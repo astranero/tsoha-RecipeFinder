@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<body>
+    <div class="limiter">
+        <div class="wrap-basic font">
+            <form action="/manage-recipes/modify-recipe/{{recipe.id}}" method="POST">
+                <div class="mb-3">
+                    <label for="edited_recipe_name" class="form-label">Recipe name</label>
+                    <input type="text" class="form-control" value="{{recipe.recipe_name}}" name="edited_recipe_name" id="edited_recipe_name">
+                </div>
+                <div class="mb-3">
+                    <label for="edited_cook_time" class="form-label">Recipe name</label>
+                    <input type="text" class="form-control" value="{{recipe.cook_time}}" name="edited_cook_time" id="edited_cook_time">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit changes</button>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock %}

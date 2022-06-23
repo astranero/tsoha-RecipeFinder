@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS Ingredients (
 );
 
 CREATE TABLE IF NOT EXISTS Favorites (
-    user_id INTEGER REFERENCES Users (id),
-    recipe_id INTEGER REFERENCES Recipes (id),
+    user_id INTEGER REFERENCES Users (id) ON DELETE CASCADE,
+    recipe_id INTEGER REFERENCES Recipes (id) ON DELETE CASCADE,
     UNIQUE(user_id, recipe_id)
 );
 
