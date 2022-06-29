@@ -6,9 +6,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 
     <div class="limiter">
-        <div class="wrap-basic font">
+        <div class="wrap-basic font spacing-normal">
             <form action="/manage-recipes/modify-recipe/{{recipe.id}}" method="POST">
-                <div class="mb-3">
+                <div class="mb-3 spacing-normal">
                     <label for="edited_recipe_name" class="form-label">Recipe name</label>
                     <input type="text" class="form-control" value="{{recipe.recipe_name}}" name="edited_recipe_name" id="edited_recipe_name">
                 </div>

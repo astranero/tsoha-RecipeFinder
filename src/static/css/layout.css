@@ -72,6 +72,7 @@ body {
     width: 95%;
     align-items: center;
     position: absolute;
+    overflow: visible;
     background-position: center;
     top: 13%;
     left: 2.5%;
@@ -80,11 +81,11 @@ body {
 
 .wrap-filter {
     width: 95%;
-    height: 15%;
-    align-items: center;
+    height: 20%;
     position: absolute;
+    overflow: visible;
     background-position: center;
-    top: 13%;
+    top: 11%;
     left: 2.5%;
     background-color: #fff;
 }
@@ -112,34 +113,51 @@ body {
 .search-box-location {
     position: absolute;
     top: 30%;
-    left: 30%;
+    left: 40%;
 }
 
 .search-box-length {
-    width: 20cm;
+    width: 20cm !important;
 }
 .order-by-oldest-location {
     position: absolute;
     top: 30%;
-    left:5%;
+    left:13%;
 }
 .order-by-newest-location {
     position: absolute;
-    top: 55%;
-    left:5%;
+    top: 57%;
+    left:13%;
 }
 .order-by-review-location {
     position: absolute;
     top: 30%;
-    left:15%;
+    left:22%;
 }
 
 .order-by-name-location {
     position: absolute;
-    top: 55%;
-    left:15%;
+    top: 57%;
+    left:22%;
 }
 
+.add-recipe-positioning {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+}
+
+
+.order-by-location {
+    position: absolute;
+    top: 15%;
+    left: 13%
+}
+.search-positioning {
+    position: absolute;
+    top: 50%;
+    left: 12%;
+}
 
 .recipe-name-positioning {
     width: 30%;
@@ -203,6 +221,7 @@ body {
 
 .font {
     font-family: Poppins-Regular;
+    color: rgb(69, 68, 68);
 }
 
 .spacing-normal {
