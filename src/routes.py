@@ -152,7 +152,6 @@ def manage_recipes():
         return redirect("/manage-recipes")
     return render_template("manage_recipes.html", recipe_all=recipe_all)
 
-
 @app.route("/manage-recipes/delete-recipe/<int:recipe_id>", methods=["GET","POST"])
 def delete_recipe(recipe_id):
     user_service.require_role(1)
