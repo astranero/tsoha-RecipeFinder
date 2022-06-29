@@ -3,6 +3,8 @@
 {% block content %}
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
     <div class="limiter">
         <div class="wrap-basic font">
             <form action="/manage-recipes/modify-recipe/{{recipe.id}}" method="POST">
@@ -11,12 +13,74 @@
                     <input type="text" class="form-control" value="{{recipe.recipe_name}}" name="edited_recipe_name" id="edited_recipe_name">
                 </div>
                 <div class="mb-3">
-                    <label for="edited_cook_time" class="form-label">Recipe name</label>
+                    <label for="edited_cook_time" class="form-label">Cook time</label>
                     <input type="text" class="form-control" value="{{recipe.cook_time}}" name="edited_cook_time" id="edited_cook_time">
                 </div>
+                <div class="mb-3">
+                    <label for="edited_description" class="form-label">Description</label>
+                    <input for="description_txt" type="hidden" class="form-control" value="{{recipe.description}}" name="edited_description" id="edited_description">
+                    <textarea class="form-control" name="description_txt" id="description_txt">{{recipe.description}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ingredients (e.g. 2dl milk)</label>
+                    {% for item in ingredients %}
+                    <div id="remove">
+                    <input type="text" name="edited_ingredient" id="edited_ingredient" value="{{item[0]}}">
+                    </div>
+                    {% endfor %}
+                    <div class="ingredient_input" id="ingredient_input">
+                    </div>
+                </div>
+                <div class="top-padding">
+                <button type="button" class="controls btn btn-outline-secondary">
+                    <a href="#" id="add_more_fields" name="add_more_fields">
+                        <i class="fa fa-plus">
+                        </i>Add More
+                    </a>
+                </button>
+                <button type="button" class="controls btn btn-outline-secondary">
+                    <a href="#" id="remove_fields">
+                        <i class="fa fa-plus">
+                        </i>Remove ingredient
+                    </a>
+                </button>
+        
+                </div>
+            <div class="mb-3">
+                <label for="edited_instructions" class="form-label">Instructions</label>
+                <input for="instructions_txt" type="hidden" class="form-control" value="{{recipe.instructions}}" name="edited_instructions" id="edited_instructions">
+                <textarea class="form-control" name="instructions_txt" id="instructions_txt" value="{{recipe.instructions}}">{{recipe.instructions}}</textarea>
+            </div>
+
                 <button type="submit" class="btn btn-primary">Submit changes</button>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+
+    <script>
+        var ingredient_input = document.getElementById('ingredient_input');
+        var add_more_fields = document.getElementById('add_more_fields');
+        var remove_fields = document.getElementById('remove_fields');
+        add_more_fields.onclick = function(){
+
+        var newRow = document.createElement('div');
+        ingredient_input.appendChild(newRow);
+
+        var newIngredient = document.createElement('input');
+        newIngredient.setAttribute('type','text');
+        newIngredient.setAttribute('name','new_ingredient');
+        newIngredient.setAttribute('id','new_ingredient');
+        newIngredient.setAttribute('placeholder','Add ingredient');
+        ingredient_input.appendChild(newIngredient);
+        }
+
+        remove_fields.onclick = function(){
+            const element = document.getElementById("ingredient_input");
+            element.removeChild(element.lastChild);
+        }
+    </script>
 </body>
 {% endblock %}

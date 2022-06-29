@@ -12,15 +12,25 @@ class RecipeService:
         return False
 
     def add_ingredient_to_recipe(self, ingredient_id, recipe_id):
-        if not self._repository.check_if_ingredient_in_recipe(recipe_id):
-            return self._repository.add_ingredient_to_recipe(ingredient_id, recipe_id)
-        return False
+        return self._repository.add_ingredient_to_recipe(ingredient_id, recipe_id)
 
     def get_recipe_id(self, recipe_name):
         return self._repository.get_recipe_id(recipe_name)
 
-    def get_recipe(self):
-        return self._repository.get_recipe()
+    def get_recipe_order_by_oldest(self):
+        return self._repository.get_recipe_order_by_oldest()
+
+    def get_recipe_order_by_newest(self):
+        return self._repository.get_recipe_order_by_newest()
+
+    def get_recipe_order_by_review(self):
+        return self._repository.get_recipe_order_by_review()
+    
+    def get_recipe_order_by_name(self):
+        return self._repository.get_recipe_order_by_name()
+    
+    def get_recipe_details(self):
+        return self._repository.get_recipe_details()
 
     def get_recipe_with_id(self, recipe_id):
         return self._repository.get_recipe_with_id(recipe_id)
@@ -32,13 +42,17 @@ class RecipeService:
         return self._repository.delete_recipe(id)
 
     def search_by_name(self, query):
-        """Returns reading tips that contain title similar to given query from db.
-        """
         min_ratio = 80
         results = []
-        for recipe in self._repository.get_recipe():
+        for recipe in self._repository.get_recipes_for_search():
             if fuzz.WRatio(query, recipe.recipe_name) >= min_ratio:
                 results.append(recipe)
         return results
+
+    def modify_ingredients(self, recipe_id, ingredient_name):
+        self._repository.modify_recipe_ingredients(recipe_id, ingredient_name)
+
+    def modify_recipe(self, recipe_id, recipe_name, cook_time, description, instructions):
+        return self._repository.modify_recipe(recipe_id, recipe_name, cook_time, description, instructions)
 
 recipe_service = RecipeService()

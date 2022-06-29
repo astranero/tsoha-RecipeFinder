@@ -8,8 +8,11 @@ class UserRepository:
 
     def login(self, username):
         try:
-            sql = "SELECT id, username, password, role FROM users WHERE username=:username"
-            return self._db.session.execute(sql, {"username":username}).fetchone()
+            sql = """SELECT id, username, password, role
+                    FROM users
+                    WHERE username=:username"""
+            return self._db.session.execute(sql,
+                                {"username":username}).fetchone()
         except:
             return False
 
@@ -22,30 +25,27 @@ class UserRepository:
                             "phone_number":user_object.phone_number,
                             "email":user_object.email}
 
-            sql = "INSERT INTO users (username, password, role, phone_number, email) \
-                    VALUES (:username, :password, :role, :phone_number, :email)"
+            sql = """INSERT INTO users (username,
+                                        password,
+                                        role,
+                                        phone_number,
+                                        email)
+                    VALUES (:username,
+                            :password,
+                            :role,
+                            :phone_number,
+                            :email)"""
             self._db.session.execute(sql, values_to_db)
             self._db.session.commit()
         except:
             return False
 
     def check_if_username_exists(self, username):
-        return bool(self._db.session.execute("SELECT username \
-                                    FROM users \
-                                    WHERE username=:username",
-                                    {"username":username}).fetchall())
-
-    def check_if_email_exists(self, email):
-        return bool(self._db.session.execute("SELECT email \
-                                    FROM users \
-                                    WHERE email=:email",
-                                    {"email":email}).fetchall())
-
-    def check_if_phone_number_exists(self, phone_number):
-        return bool(self._db.session.execute("SELECT phone_number \
-                                    FROM users \
-                                    WHERE phone_number=:phone_number",
-                                    {"phone_number":phone_number}).fetchall())
+        sql = """SELECT username
+                FROM users
+                WHERE username=:username"""
+        return bool(self._db.session.execute(sql,
+                        {"username":username}).fetchall())
 
     def modify_user(self, new_user_object: User):
         values_to_db = {"user_id":new_user_object.user_id,
@@ -54,10 +54,10 @@ class UserRepository:
                         "phone_number":new_user_object.phone_number,
                         "email": new_user_object.email}
         try:
-            sql ="UPDATE Users SET \
-                    username=:username, password=:password, \
-                    phone_number=:phone_number, email=:email \
-                    WHERE id=:user_id"
+            sql ="""UPDATE Users SET
+                    username=:username, password=:password,
+                    phone_number=:phone_number, email=:email
+                    WHERE id=:user_id"""
 
             self._db.session.execute(sql, values_to_db)
             self._db.session.commit()
@@ -67,7 +67,9 @@ class UserRepository:
 
     def get_current_user(self, id):
         try:
-            sql = self._db.session.execute("SELECT * FROM Users WHERE id=:id", \
+            sql = self._db.session.execute("""SELECT *
+                                                FROM Users
+                                                WHERE id=:id""",
                                             {"id":id}).fetchone()
             return self.create_user_from_result(sql)
         except:

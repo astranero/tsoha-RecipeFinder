@@ -10,6 +10,10 @@
             <div class="text-padding">
               <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal-new-recipe">Add recipe</button>
             </div>
+            <form class="form-inline my-lg-0" action="/manage-recipes" method="POST">
+              <input class="form-control mr-sm-2 col-xs-4" type="search" placeholder="Search" aria-label="Search" id="search" name="search" value="{{ request.form['search'] }}">
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
             <form action="/manage-recipes" method="POST">
               <div class="modal" id="myModal-new-recipe">
                 <div class="modal-dialog">
@@ -21,26 +25,26 @@
                       <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label required">Recipe name</label>
-                            <input type="text" class="form-control" id="recipe_name", name="recipe_name">
+                            <input type="text" class="form-control" id="recipe_name", name="recipe_name" required>
                         </div>
                       </div>
                       <div class="modal-body">
                         <div class="mb-3">
                               <label class="form-label required">Cook time</label>
-                              <input type="text" class="form-control" id="cook_time", name="cook_time">
+                              <input type="text" class="form-control" id="cook_time", name="cook_time" required>
                         </div>
                       </div>
                       <div class="modal-body">
                         <div class="mb-3">
                           <label class="form-label required">Recipe description</label>
-                          <textarea class="form-control" id="description" name="description"></textarea>
+                          <textarea class="form-control" id="description" name="description" required></textarea>
                         </div>
                       </div>
                       <div class="modal-body">
                         <div class="mb-3">
                           <label class="form-label">Add Ingredients (e.g. 2dl milk)</label>
                           <div class="ingredient_input" id="ingredient_input" name="ingredient_all">
-                              <input type="text" name="ingredient" id="ingredient" placeholder="Add ingredient">
+                              <input type="text" name="ingredient" id="ingredient" placeholder="Add ingredient" required>
                           </div>
                           <div class="top-padding">
                           <button type="button" class="controls btn btn-outline-secondary">
@@ -61,7 +65,7 @@
                       <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label required">Add instructions for recipe</label>
-                            <textarea class="form-control" id="instructions" name="instructions"></textarea>
+                            <textarea class="form-control" id="instructions" name="instructions" required></textarea>
                         </div>
                       </div>
                       <div class="modal-footer">
@@ -70,14 +74,14 @@
                   </div>
                 </div>
               </div>
+              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
             <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">Recipe Name</th>
-                    <th scope="col">Rating</th>
-                    <th scope="col">Amount of comments</th>
-                    <th scope="col">Amount of likes</th>
+                    <th scope="col">Average review</th>
+                    <th scope="col">Amount of Reviews</th>
                     <th scope="col">Modify/Delete</th>
                   </tr>
                 </thead>
@@ -85,9 +89,8 @@
                   <tr>
                     {% for item in recipe_all %}
                     <td><a href="/recipe/{{item[0]}}">{{item[1]}}</a></td>
-                    <td>amount</td>
-                    <td>rating</td>
-                    <td>likes</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[2]}}</td>
                     <td>
                       <a href="/manage-recipes/modify-recipe/{{item[0]}}" class="btn btn-outline-secondary">Modify</a>
                       <a href="/manage-recipes/delete-recipe/{{item[0]}}" class="btn btn-outline-secondary">Delete</a>
@@ -99,17 +102,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script>
-      src="/src/static/js/add-remove-ingredients.js"
-
-      function getSelectValue()
-      {
-          var selectedValue = document.getElementById("list").value;
-          console.log(selectedValue);
-      }
-      getSelectValue();
-
-  </script>
   <script>
       var ingredient_input = document.getElementById('ingredient_input');
       var add_more_fields = document.getElementById('add_more_fields');

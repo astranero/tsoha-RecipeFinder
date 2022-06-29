@@ -27,7 +27,6 @@ body {
 
 .wrap-all-recipes {
     width: 95%;
-    height: 100%;
     background-color: #fff;
     overflow: hidden;
     flex-wrap: wrap;
@@ -82,9 +81,35 @@ body {
 
 .search-box-location {
     position: absolute;
-    top: 20%;
-    left: 80%;
+    top: 30%;
+    left: 30%;
 }
+
+.search-box-length {
+    width: 20cm;
+}
+.order-by-oldest-location {
+    position: absolute;
+    top: 30%;
+    left:5%;
+}
+.order-by-newest-location {
+    position: absolute;
+    top: 55%;
+    left:5%;
+}
+.order-by-review-location {
+    position: absolute;
+    top: 30%;
+    left:15%;
+}
+
+.order-by-name-location {
+    position: absolute;
+    top: 55%;
+    left:15%;
+}
+
 
 .recipe-name-positioning {
     width: 30%;
@@ -170,3 +195,13 @@ body {
 .item-row {
     grid-row: 1 / span 2;
   }
+
+  .signup-picture {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 10%;
+    z-index: 1;
+}

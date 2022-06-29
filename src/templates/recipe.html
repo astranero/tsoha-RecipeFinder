@@ -4,25 +4,51 @@
 <body>
     <div class="limiter">
         <div class="wrap-basic font">
-            {% for item in recipe %}
-            <h2>{{item[1]}}</h2>
-            <div>Cook time: {{item[2]}}</div>
-            {% endfor %}
+
+            <h2>{{recipe.recipe_name}}</h2>
+            <div>Cook time: {{recipe.cook_time}}</div>
 
             <div>Ingredients:</div>
             {% for item in ingredients %}
             <div>{{item[0]}}</div>
             {% endfor %}
+            <div>Instructions</div>
+            <div>{{recipe.instructions}}</div>
 
-            {% for item in recipe %}
-            <div>Instructions.</div>
-            <div>{{item[6]}}</div>
-            {% endfor %}
-            <form action="/recipe/{{recipe_id}}" method="POST">
-            <button type="submit" class="btn btn-secondary" id="favorite" name="favorite" value="like">Add to Favorites!</button>
+            <form action="/recipe/{{recipe_id}}/add-to-favorites" method="POST">
+                <button type="submit" class="btn btn-secondary">Add to Favorites!</button>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
+            <div>{{average}}</div>
+
+            {% if review_done  %}
+
+                {% if role == 0%}
+
+                <form action="/recipe/{{recipe_id}}/add-review" method="POST">
+                    How many stars? (1-5)<br>
+                    <input type="number" name="grade" min="1" max="5" required style="width: 3em;"><br>
+                    Write review<br>
+                    <textarea name="comment" rows="3" cols="50" minlength="1" maxlength="500" required></textarea><br>
+                    <button type="submit" value="Add review" class="btn btn-secondary">Add review</button>
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </form>
+                {% endif %}
+            {% else %}
+            <div>You have already reviewed this recipe</div>
+            {% endif %}
+
+
+            {% for item in reviews_all %}
+            <p>
+                <b>Review created at: </b> {{item.sent_at.strftime("%d.%m.%Y klo %H:%M")}}<br>
+                <b>Review: </b> {{item[0]}}/5<br>
+                <b>By:</b> {{item[3]}}<br>
+                <b>Comment: {{item[1]}}</b>
+            </p>
+            {% endfor %}
+
         </div>
     </div>
-
 </body>
 {% endblock %}
