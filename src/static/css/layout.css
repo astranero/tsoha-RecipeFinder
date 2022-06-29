@@ -8,6 +8,7 @@ body {
     line-height: 1.5;
     color: #212529;
     background: #f2f2f2;
+    overflow: visible;
   }
 
 .limiter {
@@ -28,7 +29,7 @@ body {
 .wrap-all-recipes {
     width: 95%;
     background-color: #fff;
-    overflow: hidden;
+    overflow: visible;
     flex-wrap: wrap;
     flex-direction: row-reverse;
     box-sizing: border-box;
@@ -36,6 +37,35 @@ body {
     background-position: center;
     top: 35%;
     left: 2.5%;
+}
+
+.wrap-recipe {
+    width: 53%;
+    height: 85%;
+    background-color: #fff;
+    overflow: scroll;
+    position: absolute;
+    top: 13%;
+    left: 2.5%;
+}
+
+.wrap-give-review {
+    width: 40%;
+    height: 40%;
+    background-color: #fff;
+    position: absolute;
+    top: 13%;
+    left: 57%;
+}
+
+.wrap-recipe-reviews {
+    width: 40%;
+    height: 43%;
+    background-color: #fff;
+    overflow:scroll;
+    position: absolute;
+    top: 55%;
+    left: 57%;
 }
 
 .wrap-basic {
@@ -132,6 +162,20 @@ body {
     left: 15%;
 }
 
+.review-positioning {
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 15cm;
+}
+
+.recipe-positioning {
+    position: absolute;
+    top: 10%;
+    left: 4%;
+    width: 20cm;
+}
+
 /* TEXT EDITING  */
 
 .navbar-title-layout {
@@ -195,13 +239,3 @@ body {
 .item-row {
     grid-row: 1 / span 2;
   }
-
-  .signup-picture {
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    top: 10%;
-    z-index: 1;
-}
