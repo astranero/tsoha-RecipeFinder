@@ -15,7 +15,7 @@
                         <div class="card-text"><li>{{item[0]}}</li></div>
                         {% endfor %}
                         <hr>
-                        <p class="card-text">Instructions</p>
+                        <b><p class="card-text">Instructions</p></b>
                         <div>{{recipe.instructions}}</div>
                         <hr>
                         <form action="/recipe/{{recipe_id}}/add-to-favorites" method="POST">
@@ -36,7 +36,7 @@
                         <input type="number" name="grade" min="1" max="5" required style="width: 3em;"><br>
                         <div class="font top-padding">Write a comment</div>
                         <textarea name="comment" rows="3" cols="50" minlength="1" maxlength="500" required></textarea><br>
-                        <button type="submit" value="Add review" class="btn btn-secondary">Add review</button>
+                        <button type="submit" value="Add review" class="btn btn-secondary spacing-normal">Add review</button>
                         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                         <div class="top-padding"></div>
                     </form>
@@ -52,7 +52,7 @@
                     <b>Review created at: </b> {{item.sent_at.strftime("%d.%m.%Y klo %H:%M")}}<br>
                     <b>Review: </b> {{item[0]}}/5<br>
                     <b>By:</b> {{item[3]}}<br>
-                    <b>Comment: {{item[1]}}</b>
+                    <b>Comment:</b> {{item[1]}}
                     </p>
                     {% endfor %}
                 </div>

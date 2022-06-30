@@ -8,10 +8,10 @@
       {% include 'flash.html' %}
         <div class="wrap-filter font">
             <div class="page-title-layout title-layout">Manage Recipes</div>
-              <button type="button" class="btn btn-outline-secondary add-recipe-positioning" data-bs-toggle="modal" data-bs-target="#myModal-new-recipe">Add new recipe</button>
+              <button type="button" class="btn btn-outline-secondary add-recipe-positioning spacing-normal" data-bs-toggle="modal" data-bs-target="#myModal-new-recipe">Add new recipe</button>
             <form class="form-inline my-lg-0 text-padding search-positioning" action="/manage-recipes" method="POST">
-              <input class="form-control mr-sm-2 col-xs-4 search-box-length" type="search" placeholder="Search by recipe name" aria-label="Search" id="search" name="search" value="{{ request.form['search'] }}">
-              <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+              <input class="form-control mr-sm-2 col-xs-4 search-box-length spacing-normal" type="search" placeholder="Search by recipe name" aria-label="Search" id="search" name="search" value="{{ request.form['search'] }}">
+              <button class="btn btn-outline-secondary my-2 my-sm-0 spacing-normal" type="submit">Search</button>
               <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>
         </div>

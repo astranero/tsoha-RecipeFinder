@@ -12,12 +12,12 @@
                 {% for item in favorites %}
                 <div class="card col-6">
                     <div class="card-body" align="left">
-                        <h5 class="card-title spacing-normal">{{item[1]}}</h5>
-                        <b><p class="card-text">Cook time: {{item[2]}}</p></b>
-                        <p class="card-text">{{item[3]}}</p>
-                        <a href="/recipe/{{item[0]}}" class="btn btn-outline-secondary">Go to Recipe!</a>
+                        <h5 class="card-title font spacing-normal">{{item[1]}}</h5>
+                        <b><p class="card-text font spacing-normal">Cook time: {{item[2]}}</p></b>
+                        <p class="card-text font spacing-normal">{{item[3]}}</p>
+                        <a href="/recipe/{{item[0]}}" class="btn btn-outline-secondary spacing-normal">Go to Recipe!</a>
                         <input type="hidden" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
-                        <button type="submit" class="btn btn-outline-secondary"> Delete from favorites </button>
+                        <button type="submit" class="btn btn-outline-danger spacing-normal"> Delete from favorites </button>
                     </div>
                 </div>
                 {% endfor %}
