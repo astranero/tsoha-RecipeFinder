@@ -15,7 +15,7 @@
                         <div class="card-text"><li>{{item[0]}}</li></div>
                         {% endfor %}
                         <hr>
-                        <b><p class="card-text">Instructions</p></b>
+                        <b><p class="card-text">Instructions: </p></b>
                         <div>{{recipe.instructions}}</div>
                         <hr>
                         <form action="/recipe/{{recipe_id}}/add-to-favorites" method="POST">
