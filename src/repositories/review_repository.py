@@ -19,28 +19,35 @@ class ReviewRepository:
             return False
 
     def get_recipe_reviews(self, recipe_id):
-        sql = """SELECT Review.rating, Review.comment, Review.sent_at, Users.username
-                    FROM Review
-                    LEFT JOIN Users ON Users.id = Review.user_id
-                    WHERE Review.recipe_id=:recipe_id
-                    """
-        return self._db.session.execute(sql, {"recipe_id":recipe_id}).fetchall()
+        sql = """SELECT Review.rating,
+                        Review.comment,
+                        Review.sent_at,
+                        Users.username
+                FROM Review
+                LEFT JOIN Users ON Users.id = Review.user_id
+                WHERE Review.recipe_id=:recipe_id"""
+        return self._db.session.execute(sql,
+                            {"recipe_id":recipe_id}).fetchall()
 
     def get_average_for_reviews(self, recipe_id):
         try:
             sql = """SELECT ROUND(COALESCE(AVG(rating), 0), 1)
                     FROM Review
                     WHERE recipe_id=:recipe_id"""
-            return self._db.session.execute(sql, {"recipe_id":recipe_id}).fetchone()[0]
+            return self._db.session.execute(sql,
+                            {"recipe_id":recipe_id}).fetchone()[0]
         except:
             return False
 
     def check_if_user_already_reviewed_recipe(self, recipe_id, user_id):
-        sql = """SELECT user_id, recipe_id
-                FROM Review
-                WHERE recipe_id=:recipe_id
-                        AND user_id=:user_id"""
-        return bool(self._db.session.execute(sql,
-                        {"recipe_id":recipe_id, "user_id": user_id}).fetchall())
+        try:
+            sql = """SELECT user_id, recipe_id
+                    FROM Review
+                    WHERE recipe_id=:recipe_id
+                            AND user_id=:user_id"""
+            return self._db.session.execute(sql,
+                            {"recipe_id":recipe_id, "user_id": user_id}).fetchall()
+        except:
+            return False
 
 review_repository = ReviewRepository()

@@ -16,14 +16,12 @@ body {
     margin: 0 auto;
 }
 
-
 /* WRAPS */
 
 .wrap-navbar {
     width: 100%;
     height: 100%;
     background-color: #fff;
-
 }
 
 .wrap-all-recipes {
@@ -106,10 +104,6 @@ body {
 
 /* POSITIONING  */
 
-.navbar-links {
-    align-items: center;
-}
-
 .search-box-location {
     position: absolute;
     top: 30%;
@@ -147,11 +141,22 @@ body {
     left: 2%;
 }
 
-
 .order-by-location {
     position: absolute;
     top: 15%;
     left: 13%
+}
+
+.form-location {
+    position: relative;
+    left: 30%;
+    top: 10%;
+    width: 20cm;
+}
+
+.form-button-location {
+    position: absolute !important;
+    left: 32% !important;
 }
 .search-positioning {
     position: absolute;
@@ -196,22 +201,18 @@ body {
 
 /* TEXT EDITING  */
 
-.navbar-title-layout {
+.title-layout {
     font-size: 30px;
     color: rgb(69, 68, 68);
     letter-spacing: 3px;
 }
 
 .page-title-layout {
-    font-size: 30px;
-    color: rgb(69, 68, 68);
-    letter-spacing: 3px;
     text-align: center;
-    padding-bottom: 2cm;
+    padding-bottom: 1cm;
 }
 
 .text-layout {
-    font-family: Poppins-Regular;
     text-align: center;
     font-size: 20px;
     color: rgb(69, 68, 68);
@@ -232,7 +233,6 @@ body {
     padding-bottom: 1cm;
 }
 
-
 .top-padding {
     padding-top: 0.3cm;
 }
@@ -240,21 +240,3 @@ body {
 .left-padding {
     padding-left: 0.3cm;
 }
-
-
-/* PICTURES  */
-
-.profile-picture {
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    top: 10%;
-    z-index: 1;
-}
-
-
-.item-row {
-    grid-row: 1 / span 2;
-  }

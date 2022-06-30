@@ -11,9 +11,9 @@ class FavoritesRepository:
             self._db.session.execute(sql,
                 {"user_id": user_id, "recipe_id": recipe_id})
             self._db.session.commit()
+            return True
         except:
             return False
-
 
     def remove_from_favorites(self, user_id, recipe_id):
         try:
@@ -23,24 +23,32 @@ class FavoritesRepository:
             self._db.session.execute(sql,
                 {"user_id": user_id, "recipe_id": recipe_id})
             self._db.session.commit()
+            return True
         except:
             return False
 
     def get_user_favorites(self, user_id):
-        sql = """SELECT Recipes.id, Recipes.recipe_name,
-                    Recipes.cook_time, Recipes.description
-                        FROM Recipes
-                        LEFT JOIN Favorites ON
-                        Recipes.id = Favorites.recipe_id
-                        WHERE Favorites.user_id=:user_id"""
-        return self._db.session.execute(sql, {"user_id":user_id}).fetchall()
+        try:
+            sql = """SELECT Recipes.id,
+                            Recipes.recipe_name,
+                            Recipes.cook_time,
+                            Recipes.description
+                    FROM Recipes
+                    LEFT JOIN Favorites ON Recipes.id = Favorites.recipe_id
+                    WHERE Favorites.user_id=:user_id"""
+            return self._db.session.execute(sql, {"user_id":user_id}).fetchall()
+        except:
+            return False
 
     def check_if_favorite(self, user_id, recipe_id):
-        sql = """SELECT user_id, recipe_id
-                FROM Favorites
-                WHERE user_id=:user_id
-                    AND recipe_id=:recipe_id"""
-        return bool(self._db.session.execute(sql,
-                    {"user_id": user_id, "recipe_id": recipe_id}).fetchall())
+        try:
+            sql = """SELECT user_id, recipe_id
+                    FROM Favorites
+                    WHERE user_id=:user_id
+                        AND recipe_id=:recipe_id"""
+            return self._db.session.execute(sql,
+                        {"user_id": user_id, "recipe_id": recipe_id}).fetchall()
+        except:
+            return False
 
 favorites_repository = FavoritesRepository()

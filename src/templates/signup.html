@@ -14,11 +14,7 @@
               <form class="signup-form validate-form" action="/signup" method="POST">
                 <div class="page-title">Create your RecipeFinder Account</div>
                     <div class="fill-form">Fill all forms</div>
-                    <div class="error-position">
-                        {% if error %}
-                        <p class=error><strong>Error:</strong> {{ error }}</p>
-                        {% endif %}
-                    </div>
+                    {% include 'flash.html' %}
                     <div class="username-input form-control" data-validate="Type Username">
                         <input class="input" name="username" id="username" type="text" placeholder="Choose your username (min. 3 characters)" required>
                     </div>
@@ -49,15 +45,12 @@
                         <a href="/" type="submit" class="btn btn-light btn-outline-dark btn-lg btn-block">GO BACK TO SIGN IN</a>
                     </div>
 
-                {% for message in get_flashed_messages() %}
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                      {{ message }}
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                  {% endfor %}
-
               <div class="signup-picture" style="background-image: url('/static/images/signup_picture.avif');"></div>
           </div>
       </div>
   </div>
+  <script src="{{ url_for('static', filename='js/setTimeout.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+
+
 </body>

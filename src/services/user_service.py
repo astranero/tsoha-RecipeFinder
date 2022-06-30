@@ -15,7 +15,7 @@ class UserService:
                     role=role,
                     phone_number=phone_number,
                     email=email)
-        if not self._user_repository.check_if_username_exists(username):
+        if not self.check_if_username_exists(username):
             self._user_repository.register_user(user)
             self.login_user(username, password)
             return True
@@ -33,10 +33,15 @@ class UserService:
             return True
         return False
 
+    def check_if_username_exists(self, username):
+        return bool(self._user_repository.check_if_username_exists(username))
+
     def modify_username(self, new_username, id):
         user = self.get_current_user(id)
         user.username = new_username
-        return self._user_repository.modify_user(user)
+        if not self.check_if_username_exists(user.username):
+            return self._user_repository.modify_user(user)
+        return False
 
     def modify_email(self, new_email, id):
         user = self.get_current_user(id)
@@ -52,7 +57,6 @@ class UserService:
         return self._user_repository.get_current_user(id)
 
     def get_current_username(self, id):
-        print(id)
         return self._user_repository.get_current_user(id).username
 
     def get_current_email(self, id):

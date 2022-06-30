@@ -7,18 +7,17 @@ from services.review_service import review_service
 
 @app.route("/", methods=["GET", "POST"])
 def login():
-    error = None
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         if not user_service.login_user(username, password):
-            return render_template("login.html", error="Invalid credentials")
+            flash(" Invalid credentials ")
+            return render_template("login.html")
         return redirect("/homepage")
-    return render_template("login.html", error=error)
+    return render_template("login.html")
 
 @app.route("/signup", methods=["GET","POST"])
 def signup():
-    error = None
     if request.method == "POST":
         username = request.form["username"]
         password1 = request.form["password1"]
@@ -27,14 +26,17 @@ def signup():
         phone_number = request.form["phone"]
         email = request.form["email"]
         if len(password1) < 8:
-            return render_template("signup.html", error='Password is too short!')
+            flash("Password is too short. Try again!")
+            return render_template("signup.html")
         if password1 != password2:
-            return render_template("signup.html", error='Passwords do not match!')
+            flash("Passwords do not match. Try again!")
+            return render_template("signup.html")
         if not user_service.register_user(username, password1, user_role, phone_number, email):
-            return render_template("signup.html", error='Username is already taken')
+            flash("Username is already taken. Try again!")
+            return render_template("signup.html")
         user_service.register_user(username, password1, user_role, phone_number, email)
         return redirect("/homepage")
-    return render_template("signup.html", error=error)
+    return render_template("signup.html")
 
 @app.route("/homepage", methods=["GET","POST"])
 def homepage():
@@ -84,6 +86,7 @@ def modify_username():
     user_service.check_csrf()
     new_username = request.form["new_username"]
     user_service.modify_username(new_username, user_id)
+    print(user_service.modify_username(new_username, user_id))
     return redirect('/profile')
 
 @app.route("/profile/modify-phone-number", methods=["POST"])
@@ -117,7 +120,9 @@ def remove_favorite():
     user_service.check_csrf()
     user_id = user_service.get_user_id()
     recipe_id = request.form["recipe_id"]
-    favorite_service.remove_from_favorites(user_id, recipe_id)
+    success = favorite_service.remove_from_favorites(user_id, recipe_id)
+    if success:
+        flash("Recipe was removed from your favorite recipes!")
     return redirect("/favorites")
 
 @app.route("/logout", methods=["GET","POST"])
@@ -144,11 +149,16 @@ def manage_recipes():
         cook_time = request.form["cook_time"]
         description = request.form["description"]
         instructions = request.form["instructions"]
-        recipe_service.create_recipe(recipe_name, description, cook_time, instructions)
+        success_recipe = recipe_service.create_recipe(recipe_name, description, cook_time, instructions)
         recipe_id = recipe_service.get_recipe_id(recipe_name)
         ingredients = request.form.getlist("ingredient")
         for item in ingredients:
-            recipe_service.add_ingredient_to_recipe(item, recipe_id)
+            success_ingredients = recipe_service.add_ingredient_to_recipe(item, recipe_id)
+
+        if success_recipe and success_ingredients:
+            flash("Recipe created successfully")
+        else:
+            flash("Could not create recipe. Try again!")
         return redirect("/manage-recipes")
     return render_template("manage_recipes.html", recipe_all=recipe_all)
 
@@ -157,6 +167,7 @@ def delete_recipe(recipe_id):
     user_service.require_role(1)
     user_service.check_csrf()
     recipe_service.delete_recipe(recipe_id)
+    flash("Recipe was deleted!")
     return redirect("/manage-recipes")
 
 @app.route("/manage-recipes/modify-recipe/<int:recipe_id>", methods=["GET","POST"])
@@ -168,15 +179,20 @@ def modify_recipe(recipe_id):
         user_service.check_csrf()
         recipe_name = request.form["edited_recipe_name"]
         cook_time = request.form["edited_cook_time"]
-        description = request.form["edited_description"]
-        instructions = request.form["edited_instructions"]
-        recipe_service.modify_recipe(recipe_id, recipe_name, cook_time, description, instructions)
-        edited_ingredients = request.form.getlist("edited_ingredient")
+        description = request.form["description_txt"]
+        instructions = request.form["instructions_txt"]
+        success_recipe = recipe_service.modify_recipe(recipe_id, recipe_name, cook_time, description, instructions)
+        edited_ingredient = request.form.getlist("edited_ingredient")
+        edited_ingredient_id = request.form.getlist("edited_ingredient_id")
         new_ingredients = request.form.getlist("new_ingredient")
-        for item in edited_ingredients:
-            recipe_service.modify_ingredients(recipe_id, item)
+        for item in zip(edited_ingredient, edited_ingredient_id):
+            recipe_service.modify_ingredients(recipe_id, item[0], int(item[1]))
         for item in new_ingredients:
             recipe_service.add_ingredient_to_recipe(item, recipe_id)
+        if success_recipe:
+            flash("Recipe was modified successfully!")
+        else:
+            flash("Modification failure. Try to modify recipe again!")
         return redirect("/manage-recipes")
     return render_template("modify_recipe.html", recipe=recipe, ingredients=ingredients)
 
@@ -195,7 +211,11 @@ def recipe(recipe_id):
 def add_to_favorites(recipe_id):
     user_service.check_csrf()
     user_id = user_service.get_user_id()
-    favorite_service.add_to_favorites(user_id, recipe_id)
+    success = favorite_service.add_to_favorites(user_id, recipe_id)
+    if success:
+        flash("Recipe was added to your favorites!")
+    else:
+        flash('Recipe is already in your favorites')
     return redirect("/recipe/"+str(recipe_id))
 
 @app.route("/recipe/<int:recipe_id>/add-review", methods=["POST"])
@@ -205,5 +225,10 @@ def add_review(recipe_id):
     user_id = user_service.get_user_id()
     review = int(request.form["grade"])
     comment = request.form["comment"]
-    review_service.create_review(review, comment, user_id, recipe_id)
+    success = review_service.create_review(review, comment, user_id, recipe_id)
+    print(success)
+    if success:
+        flash("Review sent, thank you!")
+    else:
+        flash("You have already reviewed this recipe!")
     return redirect("/recipe/"+str(recipe_id))

@@ -61,9 +61,9 @@ class UserRepository:
 
             self._db.session.execute(sql, values_to_db)
             self._db.session.commit()
+            return True
         except:
             return False
-        return True
 
     def get_current_user(self, id):
         try:

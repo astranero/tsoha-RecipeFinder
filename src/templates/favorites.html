@@ -4,13 +4,11 @@
 <body>
     <div class="limiter">
         <div class="wrap-basic font" align="center">
-            <div class="page-title-layout"> Your Favorite Recipes</b></div>
+            <div class="page-title-layout title-layout"> Your Favorite Recipes</b></div>
             {% if no_recipes == True %}
             <div class="text-layout">You don't have any favorite recipes yet!</div>
             {% else %}
-            
             <form action="/favorites/remove-favorite" method="POST">
-                
                 {% for item in favorites %}
                 <div class="card col-6">
                     <div class="card-body" align="left">
@@ -20,7 +18,7 @@
                         {% if item[5] == 0.0 %}
                         <p class="card-text">Review: <i>No reviews yet!</i></p>
                         {% else %}
-                        <p class="card-text">Review: {{item[5]}}</p>
+                        <p class="card-text">Review: {{item[5]}}/5 </p>
                         {% endif %}
                         <a href="/recipe/{{item[0]}}" class="btn btn-outline-secondary">Go to Recipe!</a>
                         <input type="hidden" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
@@ -29,10 +27,10 @@
                 </div>
                 {% endfor %}
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <div class="text-padding"></div>
             </form>
             {% endif %}
         </div>
     </div>
-
 </body>
 {% endblock %}

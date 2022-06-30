@@ -100,16 +100,6 @@ body {
   height: 10%
 }
 
-.error-position {
-  position: absolute;
-  top: 48%;
-  left: 54%;
-  color: rgb(69, 68, 68);
-  font-size: 13px;
-  font-family: Poppins-Regular;
-  letter-spacing: 2px;
-}
-
 .input {
   outline: none;
   border: none;

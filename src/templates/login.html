@@ -10,12 +10,8 @@
     <div class="limiter">
         <div class="background-login">
             <div class="wrap-login">
-              <div class="error-position">
-                {% if error %}
-                <p class=error><strong>Error:</strong> {{ error }}</p>
-                {% endif %}
-                </div>
                 <form class="login-form validate-form" action="/" method="POST">
+
                     <span class="page-title">Welcome to RecipeFinder</span>
                     <span class="login-form-title">Account Login</span>
                   <div class="wrap-input username-input validate-input m-b-50" data-validate="Type username">
@@ -34,8 +30,11 @@
                   </div>
                 </form>
                 <div class="login-picture" style="background-image: url('/static/images/signin_picture.avif');"></div>
-            </div>
+                {% include 'flash.html' %}
+
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/setTimeout.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
   </body>
 

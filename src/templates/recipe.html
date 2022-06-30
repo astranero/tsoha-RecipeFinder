@@ -4,6 +4,7 @@
 <body>
     <div class="limiter font spacing-normal">
         <div class="wrap-recipe">
+            {% include 'flash.html' %}
             <div>{{average}}</div>
             <div class="page-title-layout"> {{recipe.recipe_name}} -recipe</div>
                 <div class="card recipe-positioning">
@@ -12,7 +13,6 @@
                         <hr>
                         <b><p class="card-text">Ingredients:</p></b>
                         {% for item in ingredients %}
-
                         <div class="card-text"><li>{{item[0]}}</li></div>
                         {% endfor %}
                         <hr>
@@ -58,5 +58,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/setTimeout.js') }}"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
 </body>
 {% endblock %}
