@@ -57,13 +57,25 @@ class RecipeRepository:
         except:
             return False
 
-    def get_recipes_for_search(self):
+    def get_recipes_for_recipe_search(self):
         try:
             sql = """SELECT Recipes.id,
                             Recipes.recipe_name,
                             Recipes.cook_time,
                             Recipes.description,
-                            Recipes.instructions,
+                            ROUND(COALESCE(AVG(Review.rating), 0), 1)
+                    FROM Recipes
+                    LEFT JOIN Review ON Review.recipe_id = Recipes.id
+                    GROUP BY Recipes.id"""
+            return self._db.session.execute(sql).fetchall()
+        except:
+            return False
+
+    def get_recipes_for_management_search(self):
+        try:
+            sql = """SELECT Recipes.id,
+                            Recipes.recipe_name,
+                            COUNT(Review.comment),
                             ROUND(COALESCE(AVG(Review.rating), 0), 1)
                     FROM Recipes
                     LEFT JOIN Review ON Review.recipe_id = Recipes.id
@@ -78,7 +90,6 @@ class RecipeRepository:
                             Recipes.recipe_name,
                             Recipes.cook_time,
                             Recipes.description,
-                            Recipes.instructions,
                             ROUND(COALESCE(AVG(Review.rating), 0), 1)
                     FROM Recipes
                     LEFT JOIN Review ON Review.recipe_id = Recipes.id
@@ -94,7 +105,6 @@ class RecipeRepository:
                             Recipes.recipe_name,
                             Recipes.cook_time,
                             Recipes.description,
-                            Recipes.instructions,
                             ROUND(COALESCE(AVG(Review.rating), 0), 1)
                     FROM Recipes
                     LEFT JOIN Review ON Review.recipe_id = Recipes.id
@@ -111,7 +121,6 @@ class RecipeRepository:
                             Recipes.recipe_name,
                             Recipes.cook_time,
                             Recipes.description,
-                            Recipes.instructions,
                             ROUND(COALESCE(AVG(Review.rating), 0), 1)
                     FROM Recipes
                     LEFT JOIN Review ON Review.recipe_id = Recipes.id
@@ -128,7 +137,6 @@ class RecipeRepository:
                             Recipes.recipe_name,
                             Recipes.cook_time,
                             Recipes.description,
-                            Recipes.instructions,
                             ROUND(COALESCE(AVG(Review.rating), 0), 1)
                     FROM Recipes
                     LEFT JOIN Review ON Review.recipe_id = Recipes.id

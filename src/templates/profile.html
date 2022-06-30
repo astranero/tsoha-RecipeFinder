@@ -5,6 +5,7 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
     <div class="wrap-basic font spacing-normal">
+        {% include 'flash.html' %}
         <div class="page-title-layout title-layout"> Hi <b>{{username}}</b>!</div>
         <div class="text-layout">Do you want to change username?
         <button type="button" class="btn btn-secondary btn-sm spacing-normal" data-bs-toggle="modal" data-bs-target="#myModal-username">MODIFY IT HERE!</button>
@@ -91,7 +92,6 @@
         </div>
         <div class="text-layout"><a href="/logout">Log out</a></div>
     </div>
-
     <script src="{{ url_for('static', filename='js/setTimeout.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>

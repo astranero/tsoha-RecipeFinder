@@ -64,8 +64,8 @@ def homepage():
             recipe_all = recipe_service.get_recipe_order_by_name()
             return render_template("homepage.html", recipe_all=recipe_all)
         if query:
-            search_title = recipe_service.search_by_name(query)
-            return render_template("homepage.html", search_title=search_title)
+            recipe_all = recipe_service.search_by_name_for_recipe_find(query)
+            return render_template("homepage.html", recipe_all=recipe_all)
         if query == '':
             return render_template("homepage.html", recipe_all=recipe_all)
         return render_template("homepage.html", recipe_all=recipe_all)
@@ -85,8 +85,11 @@ def modify_username():
     user_id = user_service.get_user_id()
     user_service.check_csrf()
     new_username = request.form["new_username"]
-    user_service.modify_username(new_username, user_id)
-    print(user_service.modify_username(new_username, user_id))
+    success = user_service.modify_username(new_username, user_id)
+    if success:
+        flash("Username modified successfully!")
+    else:
+        flash("Username is already taken, try another username!")
     return redirect('/profile')
 
 @app.route("/profile/modify-phone-number", methods=["POST"])
@@ -94,7 +97,11 @@ def modify_phone_number():
     user_id = user_service.get_user_id()
     user_service.check_csrf()
     new_phone_number = request.form["new_phone_number"]
-    user_service.modify_phone_number(new_phone_number, user_id)
+    success = user_service.modify_phone_number(new_phone_number, user_id)
+    if success:
+        flash("Phone number modified successfully!")
+    else:
+        flash("Unable to modify phone number. Try again!")
     return redirect('/profile')
 
 @app.route("/profile/modify-email", methods=["POST"])
@@ -102,7 +109,11 @@ def modify_email():
     user_id = user_service.get_user_id()
     user_service.check_csrf()
     new_email = request.form["new_email"]
-    user_service.modify_email(new_email, user_id)
+    success = user_service.modify_email(new_email, user_id)
+    if success:
+        flash("Email modified successfully. Try again!")
+    else:
+        flash("Unable to modify email")
     return redirect('/profile')
 
 @app.route("/favorites", methods=["GET","POST"])
@@ -140,7 +151,7 @@ def manage_recipes():
         user_service.check_csrf()
         query = request.form.get("search")
         if query:
-            recipe_all = recipe_service.search_by_name(query)
+            recipe_all = recipe_service.search_by_name_for_management(query)
             return render_template("manage_recipes.html", recipe_all=recipe_all)
         if query == '':
             recipe_all = recipe_service.get_recipe_details()
@@ -226,7 +237,6 @@ def add_review(recipe_id):
     review = int(request.form["grade"])
     comment = request.form["comment"]
     success = review_service.create_review(review, comment, user_id, recipe_id)
-    print(success)
     if success:
         flash("Review sent, thank you!")
     else:

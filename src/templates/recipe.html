@@ -5,8 +5,7 @@
     <div class="limiter font spacing-normal">
         <div class="wrap-recipe">
             {% include 'flash.html' %}
-            <div>{{average}}</div>
-            <div class="page-title-layout"> {{recipe.recipe_name}} -recipe</div>
+            <div class="page-title-layout title-layout"> {{recipe.recipe_name}} -recipe</div>
                 <div class="card recipe-positioning">
                     <div class="card-body">
                         <h5 class="card-title spacing-normal"><b>Cook time:</b> {{recipe.cook_time}}</h5>
@@ -27,17 +26,19 @@
                 </div>
             </div>
         <div class="wrap-give-review">
+            <div class="top-padding"></div>
             <div class="card review-positioning">
                 <div class="card-body">
-                    <h5 class="card-title spacing-normal">Give a review!</h5>
+                    <h5 class="card-title spacing-normal">Give a review!</h5><h6><i>Current review is {{average}}/5</i></h6>
                     <hr>
                     <form action="/recipe/{{recipe_id}}/add-review" method="POST">
-                        <div class="font">How many starts?</div>
+                        How many stars?
                         <input type="number" name="grade" min="1" max="5" required style="width: 3em;"><br>
-                        <div class="font ">Write a comment</div>
+                        <div class="font top-padding">Write a comment</div>
                         <textarea name="comment" rows="3" cols="50" minlength="1" maxlength="500" required></textarea><br>
                         <button type="submit" value="Add review" class="btn btn-secondary">Add review</button>
                         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                        <div class="top-padding"></div>
                     </form>
                 </div>
             </div>

@@ -1,3 +1,3 @@
 setTimeout(() => {
     $('#flash').remove();
-}, 4500);
+}, 3000);

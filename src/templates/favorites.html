@@ -15,11 +15,6 @@
                         <h5 class="card-title spacing-normal">{{item[1]}}</h5>
                         <b><p class="card-text">Cook time: {{item[2]}}</p></b>
                         <p class="card-text">{{item[3]}}</p>
-                        {% if item[5] == 0.0 %}
-                        <p class="card-text">Review: <i>No reviews yet!</i></p>
-                        {% else %}
-                        <p class="card-text">Review: {{item[5]}}/5 </p>
-                        {% endif %}
                         <a href="/recipe/{{item[0]}}" class="btn btn-outline-secondary">Go to Recipe!</a>
                         <input type="hidden" id="recipe_id" name="recipe_id" value="{{item[0]}}"></input>
                         <button type="submit" class="btn btn-outline-secondary"> Delete from favorites </button>

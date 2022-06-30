@@ -46,8 +46,6 @@
                 </form>
             </div>
         </div>
-        </div>
-        {% if recipe_all %}
         <div class="wrap-all-recipes font">
             {% for item in recipe_all %}
             <div class="card">
@@ -55,30 +53,19 @@
                   <h5 class="card-title spacing-normal">{{item[1]}}</h5>
                   <b><p class="card-text">Cook time: {{item[2]}}</p></b>
                   <p class="card-text">{{item[3]}}</p>
+
                   {% if item[5] == 0.0 %}
                   <p class="card-text">Review: <i>No reviews yet!</i></p>
                   {% else %}
-                  <p class="card-text">Review: {{item[5]}}</p>
+                  <p class="card-text">Review: {{item[4]}}/5</p>
                   {% endif %}
+
                   <a href="/recipe/{{item[0]}}" class="btn btn-outline-secondary">Go to Recipe!</a>
                 </div>
             </div>
             {% endfor %}
         </div>
-        {% else %}
-        <div class="wrap-all-recipes font">
-            {% for item in search_title %}
-            <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title spacing-normal">{{item[1]}}</h5>
-                  <b><p class="card-text">Cook time: {{item[2]}}</p></b>
-                  <p class="card-text">{{item[3]}}</p>
-                  <a href="/recipe/{{item[0]}}" class="btn btn-outline-secondary">Go to Recipe!</a>
-                </div>
-            </div>
-            {% endfor %}
         </div>
-        {% endif %}
     </div>
     <script src="{{ url_for('static', filename='js/setTimeout.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

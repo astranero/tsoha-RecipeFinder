@@ -14,10 +14,18 @@ class RecipeService:
     def check_if_recipe_name_exist(self, recipe_name):
         return bool(self._repository.check_if_recipe_name_exist(recipe_name))
 
-    def search_by_name(self, query):
+    def search_by_name_for_management(self, query):
         min_ratio = 80
         results = []
-        for recipe in self._repository.get_recipes_for_search():
+        for recipe in self._repository.get_recipes_for_management_search():
+            if fuzz.WRatio(query, recipe.recipe_name) >= min_ratio:
+                results.append(recipe)
+        return results
+
+    def search_by_name_for_recipe_find(self, query):
+        min_ratio = 80
+        results = []
+        for recipe in self._repository.get_recipes_for_recipe_search():
             if fuzz.WRatio(query, recipe.recipe_name) >= min_ratio:
                 results.append(recipe)
         return results

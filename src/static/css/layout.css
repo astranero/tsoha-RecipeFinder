@@ -188,15 +188,16 @@ body {
 .review-positioning {
     position: absolute;
     top: 10%;
-    left: 15%;
-    width: 15cm;
+    left: 5%;
+    width: 90%;
+    height: 80%;
 }
 
 .recipe-positioning {
     position: absolute;
     top: 10%;
     left: 4%;
-    width: 20cm;
+    width: 92%;
 }
 
 /* TEXT EDITING  */
